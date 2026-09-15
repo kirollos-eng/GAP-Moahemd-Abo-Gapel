@@ -16,6 +16,13 @@ export default function ServicesSection() {
       {/* Atmospheric neon spot */}
       <div className="absolute top-1/2 -left-28 w-96 h-96 bg-[#c8ff00]/6 rounded-full blur-[160px] pointer-events-none" />
 
+      {/* Giant Background Watermark "SERVICES" - Textured White Stencil */}
+      <div className="absolute inset-x-0 top-8 sm:top-12 md:top-16 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
+        <span className="watermark-textured-white text-[24vw] uppercase whitespace-nowrap tracking-wider">
+          SERVICES
+        </span>
+      </div>
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         {/* Header HUD Badges */}
         <div className="flex flex-col items-start mb-12 md:mb-16">
