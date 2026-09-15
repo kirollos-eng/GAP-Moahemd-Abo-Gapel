@@ -56,7 +56,7 @@ export default function CertificatesSection() {
       badge: "NASM • CPT",
       title: t("cert_nasm_title"),
       org: t("cert_nasm_org"),
-      logoSrc: "/certificates/nasm-clean-logo.png",
+      logoSrc: "/certificates/nasm-white-logo.png",
       logoAlt: "NASM - National Academy of Sports Medicine",
       imageSrc: "/certificates/nasm-certificate.jpg",
       aspectRatio: "landscape",
@@ -70,7 +70,7 @@ export default function CertificatesSection() {
       badge: "AHA • BLS",
       title: t("cert_bls_title"),
       org: t("cert_bls_org"),
-      logoSrc: "/certificates/aha-clean-logo.png",
+      logoSrc: "/certificates/aha-white-logo.png",
       logoAlt: "American Heart Association - BLS Provider",
       imageSrc: "/certificates/bls-certificate.jpg",
       aspectRatio: "portrait",
@@ -98,7 +98,7 @@ export default function CertificatesSection() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-14 md:mb-20">
+        <div className="flex flex-col items-center text-center mb-14 md:mb-16">
           {/* Micro Tag - No surrounding container */}
           <div className="flex items-center gap-2 text-zinc-400 font-mono text-[11px] tracking-widest mb-4 uppercase">
             <span className="text-[#c8ff00] font-bold">+</span>
@@ -117,6 +117,25 @@ export default function CertificatesSection() {
           <p className="mt-4 text-sm sm:text-base md:text-lg text-zinc-400 max-w-2xl leading-relaxed">
             {t("cert_subtitle")}
           </p>
+
+          {/* Company Logos: White, No Background, Side by Side */}
+          <div className="mt-8 flex items-center justify-center gap-8 sm:gap-14 select-none">
+            <div className="flex items-center justify-center h-10 sm:h-12 opacity-85 hover:opacity-100 transition-opacity">
+              <img
+                src="/certificates/nasm-white-logo.png"
+                alt="NASM - National Academy of Sports Medicine"
+                className="h-8 sm:h-9 w-auto object-contain"
+              />
+            </div>
+            <div className="h-6 w-[1px] bg-zinc-800" />
+            <div className="flex items-center justify-center h-10 sm:h-12 opacity-85 hover:opacity-100 transition-opacity">
+              <img
+                src="/certificates/aha-white-logo.png"
+                alt="American Heart Association"
+                className="h-8 sm:h-9 w-auto object-contain"
+              />
+            </div>
+          </div>
         </div>
 
         {/* 2 Certificates Grid */}
@@ -126,14 +145,14 @@ export default function CertificatesSection() {
               key={cert.id}
               className="group relative bg-gradient-to-b from-[#0e0e0e] to-[#080808] border border-zinc-800 hover:border-[#c8ff00]/60 rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_35px_rgba(200,255,0,0.12)]"
             >
-              {/* Top Bar: Official Logo & Accreditation Badge */}
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-zinc-850">
-                {/* Official Logo Badge */}
-                <div className="bg-white px-3 py-1.5 rounded-xl border border-white/40 flex items-center justify-center shadow-md h-12">
+              {/* Top Bar: Official Logo (White, No Background) & Accreditation Badge */}
+              <div className="flex items-center gap-4 mb-6 pb-4 border-b border-zinc-850">
+                {/* Official Logo (White, No Background) */}
+                <div className="flex items-center justify-center h-9 sm:h-10">
                   <img
                     src={cert.logoSrc}
                     alt={cert.logoAlt}
-                    className="h-7 w-auto max-w-[130px] object-contain"
+                    className="h-7 sm:h-8 w-auto max-w-[130px] object-contain opacity-90 group-hover:opacity-100 transition-opacity"
                   />
                 </div>
                 <div className="flex flex-col">
@@ -268,12 +287,12 @@ export default function CertificatesSection() {
             {/* Modal Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-800 bg-[#111]">
               <div className="flex items-center gap-3">
-                {/* Official Logo in Modal */}
-                <div className="bg-white px-2.5 py-1 rounded-lg border border-white/40 flex items-center justify-center shadow-sm h-9">
+                {/* Official Logo in Modal (White, No Background) */}
+                <div className="flex items-center justify-center h-8">
                   <img
                     src={selectedCert.logoSrc}
                     alt={selectedCert.logoAlt}
-                    className="h-5 w-auto max-w-[100px] object-contain"
+                    className="h-6 w-auto max-w-[100px] object-contain opacity-95"
                   />
                 </div>
                 <div>
