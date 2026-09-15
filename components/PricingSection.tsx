@@ -289,28 +289,53 @@ export default function PricingSection({ onSelectPackage }: PricingSectionProps)
                 {t("faq_title")}
               </h3>
 
-              <div className="divide-y divide-zinc-850/90 border-y border-zinc-850/90">
+              <div className="space-y-3">
                 {faqs.map((faq, idx) => {
                   const isOpen = openFaq === idx;
                   return (
-                    <div key={idx} className="py-3.5">
+                    <div
+                      key={idx}
+                      className={`border transition-all duration-300 p-4 ${
+                        isOpen
+                          ? "border-[#c8ff00]/40 bg-zinc-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
+                          : "border-zinc-850 bg-zinc-950/60 hover:border-zinc-700"
+                      }`}
+                    >
                       <button
                         onClick={() => setOpenFaq(isOpen ? null : idx)}
-                        className="w-full flex items-center justify-between text-right gap-3 focus:outline-none cursor-pointer group"
+                        className="w-full flex items-center justify-between gap-4 text-right cursor-pointer group select-none"
+                        aria-expanded={isOpen}
                       >
-                        <span className="text-xs sm:text-sm font-semibold text-zinc-200 group-hover:text-[#c8ff00] transition-colors">
+                        <span
+                          className={`text-xs sm:text-sm font-semibold transition-colors duration-200 ${
+                            isOpen ? "text-[#c8ff00]" : "text-zinc-200 group-hover:text-white"
+                          }`}
+                        >
                           {faq.q}
                         </span>
-                        <div className="shrink-0 text-zinc-400 group-hover:text-[#c8ff00] transition-colors">
-                          {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+                        <div
+                          className={`shrink-0 transition-transform duration-300 ease-out ${
+                            isOpen ? "rotate-180 text-[#c8ff00]" : "rotate-0 text-zinc-400 group-hover:text-white"
+                          }`}
+                        >
+                          <ChevronDown className="w-4 h-4" />
                         </div>
                       </button>
 
-                      {isOpen && (
-                        <div className="pt-2.5 pb-1 text-zinc-400 text-xs leading-relaxed text-right animate-in fade-in-50 font-sans">
-                          {faq.a}
+                      {/* Smooth CSS Grid Height Transition for Opening & Closing */}
+                      <div
+                        className={`grid transition-all duration-300 ease-in-out ${
+                          isOpen
+                            ? "grid-rows-[1fr] opacity-100 mt-2.5"
+                            : "grid-rows-[0fr] opacity-0 mt-0 pointer-events-none"
+                        }`}
+                      >
+                        <div className="overflow-hidden">
+                          <p className="text-zinc-400 text-xs leading-relaxed text-right font-sans pb-1">
+                            {faq.a}
+                          </p>
                         </div>
-                      )}
+                      </div>
                     </div>
                   );
                 })}

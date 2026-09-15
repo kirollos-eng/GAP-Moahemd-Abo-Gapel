@@ -17,7 +17,7 @@ export default function ServicesSection() {
       <div className="absolute top-1/2 -left-28 w-96 h-96 bg-[#c8ff00]/6 rounded-full blur-[160px] pointer-events-none" />
 
       {/* Giant Background Watermark "SERVICES" - Textured White Stencil */}
-      <div className="absolute inset-x-0 top-8 sm:top-12 md:top-16 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
+      <div className="absolute inset-x-0 top-4 sm:top-6 md:top-8 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
         <span className="watermark-textured-white text-[24vw] uppercase whitespace-nowrap tracking-wider">
           SERVICES
         </span>
@@ -62,13 +62,6 @@ export default function ServicesSection() {
 
             {/* Block 01: NUTRITION */}
             <div className={`relative group ${isAr ? "pr-6 sm:pr-10 text-right" : "pl-6 sm:pl-10 text-left"}`}>
-              {/* Giant Background Watermark "NUTRITION" */}
-              <div className={`absolute top-1/2 -translate-y-1/2 ${isAr ? "right-0" : "left-0"} pointer-events-none select-none overflow-hidden z-0`}>
-                <span className="watermark-textured-white text-7xl sm:text-8xl md:text-9xl font-black uppercase tracking-wider">
-                  NUTRITION
-                </span>
-              </div>
-
               {/* Block Header: Badge Number + Title Starting at the same point */}
               <div className="relative z-10 flex items-center gap-3 mb-3">
                 <span className="font-mono text-xs md:text-sm font-bold text-[#c8ff00] bg-[#c8ff00]/10 border border-[#c8ff00]/30 px-2 py-0.5 rounded shrink-0">
@@ -99,13 +92,6 @@ export default function ServicesSection() {
 
             {/* Block 02: TRAINING */}
             <div className={`relative group ${isAr ? "pr-6 sm:pr-10 text-right" : "pl-6 sm:pl-10 text-left"}`}>
-              {/* Giant Background Watermark "TRAINING" */}
-              <div className={`absolute top-1/2 -translate-y-1/2 ${isAr ? "right-0" : "left-0"} pointer-events-none select-none overflow-hidden z-0`}>
-                <span className="watermark-textured-white text-7xl sm:text-8xl md:text-9xl font-black uppercase tracking-wider">
-                  TRAINING
-                </span>
-              </div>
-
               {/* Block Header */}
               <div className="relative z-10 flex items-center gap-3 mb-3">
                 <span className="font-mono text-xs md:text-sm font-bold text-[#c8ff00] bg-[#c8ff00]/10 border border-[#c8ff00]/30 px-2 py-0.5 rounded shrink-0">
@@ -137,13 +123,6 @@ export default function ServicesSection() {
 
             {/* Block 03: SUPPORT */}
             <div className={`relative group ${isAr ? "pr-6 sm:pr-10 text-right" : "pl-6 sm:pl-10 text-left"}`}>
-              {/* Giant Background Watermark "SUPPORT" */}
-              <div className={`absolute top-1/2 -translate-y-1/2 ${isAr ? "right-0" : "left-0"} pointer-events-none select-none overflow-hidden z-0`}>
-                <span className="watermark-textured-white text-7xl sm:text-8xl md:text-9xl font-black uppercase tracking-wider">
-                  SUPPORT
-                </span>
-              </div>
-
               {/* Block Header */}
               <div className="relative z-10 flex items-center gap-3 mb-3">
                 <span className="font-mono text-xs md:text-sm font-bold text-[#c8ff00] bg-[#c8ff00]/10 border border-[#c8ff00]/30 px-2 py-0.5 rounded shrink-0">
