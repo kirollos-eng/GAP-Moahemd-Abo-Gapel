@@ -24,8 +24,8 @@ export default function ServicesSection() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        {/* Header HUD Badges */}
-        <div className="flex flex-col items-start mb-12 md:mb-16">
+        {/* Header HUD Badges with generous bottom spacing so SERVICES doesn't collide with NUTRITION */}
+        <div className="flex flex-col items-start mb-24 sm:mb-28 md:mb-36">
           <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest text-zinc-400 uppercase">
             <span className="text-[#c8ff00] font-bold">+</span>
             <span>{t("services_badge")}</span>
@@ -62,6 +62,13 @@ export default function ServicesSection() {
 
             {/* Block 01: NUTRITION */}
             <div className={`relative group ${isAr ? "pr-6 sm:pr-10 text-right" : "pl-6 sm:pl-10 text-left"}`}>
+              {/* Background Watermark "NUTRITION" */}
+              <div className={`absolute top-1/2 -translate-y-1/2 ${isAr ? "right-0" : "left-0"} pointer-events-none select-none overflow-hidden z-0`}>
+                <span className="watermark-textured-white text-7xl sm:text-8xl md:text-9xl font-black uppercase tracking-wider">
+                  NUTRITION
+                </span>
+              </div>
+
               {/* Block Header: Badge Number + Title Starting at the same point */}
               <div className="relative z-10 flex items-center gap-3 mb-3">
                 <span className="font-mono text-xs md:text-sm font-bold text-[#c8ff00] bg-[#c8ff00]/10 border border-[#c8ff00]/30 px-2 py-0.5 rounded shrink-0">
@@ -92,6 +99,13 @@ export default function ServicesSection() {
 
             {/* Block 02: TRAINING */}
             <div className={`relative group ${isAr ? "pr-6 sm:pr-10 text-right" : "pl-6 sm:pl-10 text-left"}`}>
+              {/* Background Watermark "TRAINING" */}
+              <div className={`absolute top-1/2 -translate-y-1/2 ${isAr ? "right-0" : "left-0"} pointer-events-none select-none overflow-hidden z-0`}>
+                <span className="watermark-textured-white text-7xl sm:text-8xl md:text-9xl font-black uppercase tracking-wider">
+                  TRAINING
+                </span>
+              </div>
+
               {/* Block Header */}
               <div className="relative z-10 flex items-center gap-3 mb-3">
                 <span className="font-mono text-xs md:text-sm font-bold text-[#c8ff00] bg-[#c8ff00]/10 border border-[#c8ff00]/30 px-2 py-0.5 rounded shrink-0">
@@ -123,6 +137,13 @@ export default function ServicesSection() {
 
             {/* Block 03: SUPPORT */}
             <div className={`relative group ${isAr ? "pr-6 sm:pr-10 text-right" : "pl-6 sm:pl-10 text-left"}`}>
+              {/* Background Watermark "SUPPORT" */}
+              <div className={`absolute top-1/2 -translate-y-1/2 ${isAr ? "right-0" : "left-0"} pointer-events-none select-none overflow-hidden z-0`}>
+                <span className="watermark-textured-white text-7xl sm:text-8xl md:text-9xl font-black uppercase tracking-wider">
+                  SUPPORT
+                </span>
+              </div>
+
               {/* Block Header */}
               <div className="relative z-10 flex items-center gap-3 mb-3">
                 <span className="font-mono text-xs md:text-sm font-bold text-[#c8ff00] bg-[#c8ff00]/10 border border-[#c8ff00]/30 px-2 py-0.5 rounded shrink-0">
