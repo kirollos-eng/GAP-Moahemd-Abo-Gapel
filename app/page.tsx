@@ -1,69 +1,93 @@
-import Image from "next/image";
+"use client";
+
+import React, { useState } from "react";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
+import CertificatesSection from "@/components/CertificatesSection";
+import ServicesSection from "@/components/ServicesSection";
+import PricingSection from "@/components/PricingSection";
+import Footer from "@/components/Footer";
+import SubscribeModal from "@/components/SubscribeModal";
+import { PricingPackage, SITE_CONFIG } from "@/lib/config";
+import { MessageCircle } from "lucide-react";
+
+import LoadingScreen from "@/components/LoadingScreen";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Home() {
+  const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+  const [activePackage, setActivePackage] = useState<PricingPackage | null>(null);
+
+  const handleOpenSubscribe = (pkg?: PricingPackage) => {
+    if (pkg) {
+      setActivePackage(pkg);
+    } else {
+      // Default to 6-months VIP
+      setActivePackage(SITE_CONFIG.packages[2]);
+    }
+    setIsSubscribeOpen(true);
+  };
+
+  const handleDirectWhatsApp = () => {
+    const cleanNumber = SITE_CONFIG.whatsappNumber.replace(/[^0-9]/g, "");
+    window.open(
+      `https://wa.me/${cleanNumber}?text=مرحباً كابتن محمد، أرغب في الاستفسار عن باقات التدريب الأونلاين`,
+      "_blank"
+    );
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="relative min-h-screen bg-[#070707] text-[#f2f2f2] flex flex-col justify-between selection:bg-[#c8ff00] selection:text-black">
+      {/* Universal Scroll Reveal for all current & future sections */}
+      <ScrollReveal />
+
+      {/* Cyber Athletic Loading Screen with Eraser Wipe */}
+      <LoadingScreen />
+
+      {/* Fixed Navigation Bar */}
+      <Navbar onOpenSubscribe={() => handleOpenSubscribe()} />
+
+      {/* Main Sections matching exact numbering 1, 2, 3, 4 */}
+      <div className="flex-1">
+        {/* 1️⃣ Image 1: Hero Banner */}
+        <HeroSection onSelectPackage={() => handleOpenSubscribe()} />
+
+        {/* 2️⃣ Image 2: About Coach & The Process */}
+        <AboutSection />
+
+        {/* 🏅 Accreditations & Certifications: NASM & AHA BLS */}
+        <CertificatesSection />
+
+        {/* 3️⃣ Image 3: Services / Built Around You / 0% COPY-PASTE */}
+        <ServicesSection />
+
+        {/* 4️⃣ Image 4: Packages & Pricing in AED / Comparison / FAQ */}
+        <PricingSection onSelectPackage={(pkg) => handleOpenSubscribe(pkg)} />
+      </div>
+
+      {/* Footer */}
+      <Footer />
+
+      {/* Subscribe & WhatsApp Booking Intake Modal */}
+      <SubscribeModal
+        isOpen={isSubscribeOpen}
+        onClose={() => setIsSubscribeOpen(false)}
+        initialPackage={activePackage}
+      />
+
+      {/* Floating Quick Action WhatsApp Button */}
+      <button
+        onClick={handleDirectWhatsApp}
+        className="fixed bottom-6 left-6 z-40 bg-[#25D366] hover:bg-[#20bd5a] text-white p-3.5 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:shadow-[0_0_30px_rgba(37,211,102,0.7)] transition-all duration-300 active:scale-90 flex items-center justify-center group cursor-pointer"
+        aria-label="تواصل عبر واتساب"
+        title="تواصل مباشر عبر واتساب"
+      >
+        <MessageCircle className="w-6 h-6 fill-white" />
+        <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out font-bold text-xs font-sans px-0 group-hover:px-2">
+          تواصل مع الكابتن
+        </span>
+      </button>
+    </main>
   );
 }
