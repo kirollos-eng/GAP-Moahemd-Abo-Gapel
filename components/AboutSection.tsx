@@ -32,9 +32,9 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="relative bg-[#070707] py-20 md:py-28 border-t border-zinc-900 overflow-hidden">
+    <section id="about" className="relative bg-[#070707] pt-8 md:pt-12 pb-20 md:pb-28 border-t border-zinc-900 overflow-hidden">
       {/* Giant Background Watermark "ENGINEER" - Textured White Stencil */}
-      <div className="absolute inset-x-0 top-24 md:top-36 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
+      <div className="absolute inset-x-0 top-40 md:top-48 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
         <span className="watermark-textured-white text-[25vw] uppercase whitespace-nowrap tracking-wider">
           ENGINEER
         </span>
@@ -42,7 +42,7 @@ export default function AboutSection() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         {/* Top Metrics Row matching Image 2 (2000+ / 5+ / 100% / 1:1) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 md:pb-16 border-b border-zinc-800/80 text-right">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-8 md:pb-10 border-b border-zinc-800/80 text-right">
           <div className="flex flex-col">
             <span className="font-mono text-3xl md:text-5xl font-black text-white">
               {t("about_stat_1_val")}
