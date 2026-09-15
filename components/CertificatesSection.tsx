@@ -118,21 +118,21 @@ export default function CertificatesSection() {
             {t("cert_subtitle")}
           </p>
 
-          {/* Company Logos: White, No Background, Side by Side */}
-          <div className="mt-8 flex items-center justify-center gap-8 sm:gap-14 select-none">
-            <div className="flex items-center justify-center h-10 sm:h-12 opacity-85 hover:opacity-100 transition-opacity">
+          {/* Company Logos: White, No Background, Side by Side (Enlarged) */}
+          <div className="mt-8 mb-2 flex items-center justify-center gap-10 sm:gap-16 md:gap-20 select-none">
+            <div className="flex items-center justify-center h-14 sm:h-18 md:h-20 opacity-90 hover:opacity-100 transition-all hover:scale-105 duration-300">
               <img
                 src="/certificates/nasm-white-logo.png"
                 alt="NASM - National Academy of Sports Medicine"
-                className="h-8 sm:h-9 w-auto object-contain"
+                className="h-11 sm:h-14 md:h-16 w-auto max-w-[200px] object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.12)]"
               />
             </div>
-            <div className="h-6 w-[1px] bg-zinc-800" />
-            <div className="flex items-center justify-center h-10 sm:h-12 opacity-85 hover:opacity-100 transition-opacity">
+            <div className="h-10 sm:h-14 w-[1px] bg-zinc-800" />
+            <div className="flex items-center justify-center h-14 sm:h-18 md:h-20 opacity-90 hover:opacity-100 transition-all hover:scale-105 duration-300">
               <img
                 src="/certificates/aha-white-logo.png"
                 alt="American Heart Association"
-                className="h-8 sm:h-9 w-auto object-contain"
+                className="h-11 sm:h-14 md:h-16 w-auto max-w-[200px] object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.12)]"
               />
             </div>
           </div>
@@ -147,12 +147,12 @@ export default function CertificatesSection() {
             >
               {/* Top Bar: Official Logo (White, No Background) & Accreditation Badge */}
               <div className="flex items-center gap-4 mb-6 pb-4 border-b border-zinc-850">
-                {/* Official Logo (White, No Background) */}
-                <div className="flex items-center justify-center h-9 sm:h-10">
+                {/* Official Logo (White, No Background - Enlarged) */}
+                <div className="flex items-center justify-center h-11 sm:h-13">
                   <img
                     src={cert.logoSrc}
                     alt={cert.logoAlt}
-                    className="h-7 sm:h-8 w-auto max-w-[130px] object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                    className="h-9 sm:h-11 w-auto max-w-[160px] object-contain opacity-95 group-hover:opacity-100 transition-all group-hover:scale-105"
                   />
                 </div>
                 <div className="flex flex-col">
