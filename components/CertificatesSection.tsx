@@ -86,9 +86,9 @@ export default function CertificatesSection() {
       id="certificates"
       className="relative bg-[#070707] py-20 md:py-28 border-t border-zinc-900 overflow-hidden"
     >
-      {/* Background Watermark */}
-      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
-        <span className="watermark-textured-white text-[20vw] uppercase whitespace-nowrap tracking-widest opacity-40">
+      {/* Background Watermark at Beginning of Section */}
+      <div className="absolute inset-x-0 top-8 sm:top-12 md:top-16 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
+        <span className="watermark-textured-white text-[22vw] uppercase whitespace-nowrap tracking-wider">
           CERTIFIED
         </span>
       </div>
