@@ -17,9 +17,15 @@ export const SITE_CONFIG = {
   monogram: "GAP",
   coachTitle: "مهندس يبني الأجسام بناء المشاريع",
   shortBio: "تدريب أونلاين متهندس على جسمك وهدفك — تغذية، تمرين، ومتابعة مباشرة.",
-  whatsappNumber: "+971500000000",
+  whatsappNumber: "+201016942303",
   currency: "AED",
   currencyArabic: "د.إ",
+  
+  socialLinks: {
+    whatsapp: "https://wa.me/201016942303",
+    instagram: "https://www.instagram.com/mahmoudabogabl?stkn=MTMyaXJjMWhvbTBvaw%3D%3D&utm_source=qr",
+    facebook: "https://www.facebook.com/share/1BkwGZQcPw/?mibextid=wwXIfr"
+  },
   
   // 📸 ضع روابط صور الكابتن هنا عند توفرها (يدعم روابط خارجية https:// أو مسارات محلية /images/coach.png)
   coachImages: {

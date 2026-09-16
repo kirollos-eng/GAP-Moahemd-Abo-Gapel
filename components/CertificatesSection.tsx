@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   ShieldCheck,
   CheckCircle2,
@@ -30,6 +31,11 @@ interface CertificateItem {
 export default function CertificatesSection() {
   const { t, isAr } = useLanguage();
   const [selectedCert, setSelectedCert] = useState<CertificateItem | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close lightbox on Escape key
   useEffect(() => {
@@ -84,7 +90,7 @@ export default function CertificatesSection() {
   return (
     <section
       id="certificates"
-      className="relative bg-[#070707] py-20 md:py-28 border-t border-zinc-900 overflow-hidden"
+      className="relative bg-[#070707] py-20 md:py-28 border-t border-zinc-900 overflow-hidden scroll-mt-20 md:scroll-mt-24"
     >
       {/* Background Watermark at Beginning of Section */}
       <div className="absolute inset-x-0 top-8 sm:top-12 md:top-16 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
@@ -145,42 +151,47 @@ export default function CertificatesSection() {
               key={cert.id}
               className="group relative bg-gradient-to-b from-[#0e0e0e] to-[#080808] border border-zinc-800 hover:border-[#c8ff00]/60 rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_35px_rgba(200,255,0,0.12)]"
             >
-              {/* Top Bar: Official Logo (White, No Background) & Accreditation Badge */}
-              <div className="flex items-center gap-4 mb-6 pb-4 border-b border-zinc-850">
-                {/* Official Logo (White, No Background - Enlarged) */}
-                <div className="flex items-center justify-center h-11 sm:h-13">
+              {/* Top Bar: Official Logo & Accreditation Badge (Symmetric justify-between layout) */}
+              <div className="flex items-center justify-between gap-4 mb-6 pb-4 border-b border-zinc-850 h-16 sm:h-20 shrink-0">
+                {/* Official Logo (White, No Background) */}
+                <div className="flex items-center justify-start h-12 sm:h-14 w-36 sm:w-44 shrink-0">
                   <img
                     src={cert.logoSrc}
                     alt={cert.logoAlt}
-                    className="h-9 sm:h-11 w-auto max-w-[160px] object-contain opacity-95 group-hover:opacity-100 transition-all group-hover:scale-105"
+                    className={`${
+                      cert.id === "bls"
+                        ? "h-11 sm:h-13 max-w-[170px]"
+                        : "h-9 sm:h-11 max-w-[170px]"
+                    } w-auto object-contain opacity-95 group-hover:opacity-100 transition-all group-hover:scale-105`}
                   />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs font-mono font-bold tracking-wider px-2.5 py-0.5 rounded border uppercase text-[#c8ff00] bg-[#c8ff00]/10 border-[#c8ff00]/30 w-fit">
+
+                <div className="flex flex-col text-end shrink-0">
+                  <span className="text-sm sm:text-base font-mono font-bold tracking-wider uppercase text-[#c8ff00]">
                     {cert.badge}
                   </span>
-                  <span className="text-[10px] font-mono text-zinc-400 mt-1">
+                  <span className="text-[10px] sm:text-[11px] font-mono text-zinc-400 mt-0.5">
                     {cert.officialTag}
                   </span>
                 </div>
               </div>
 
-              {/* Certificate Details */}
-              <div className="mb-6 flex-1">
-                <h3 className="text-xl sm:text-2xl font-black text-white group-hover:text-[#c8ff00] transition-colors leading-snug mb-2">
+              {/* Certificate Details with Normalized Vertical Footprint */}
+              <div className="mb-6 flex-1 flex flex-col">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-white group-hover:text-[#c8ff00] transition-colors leading-snug mb-2 min-h-[3.5rem] sm:min-h-[4rem] flex items-center">
                   {cert.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm font-semibold text-zinc-300 mb-3">
+                <p className="text-xs sm:text-sm font-semibold text-zinc-300 mb-3 min-h-[2.25rem] sm:min-h-[2.5rem] flex items-center">
                   {cert.org}
                 </p>
 
-                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-normal mb-5">
+                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-normal mb-5 min-h-[4.25rem] sm:min-h-[4.5rem] flex items-center">
                   {cert.description}
                 </p>
 
-                {/* Metadata Chip: Certificate / License Code (without expiration) */}
-                <div className="bg-black/70 border border-zinc-850 rounded-xl p-3.5 text-xs font-mono flex items-center justify-between">
+                {/* Metadata Chip: Certificate / License Code (Symmetric alignment) */}
+                <div className="bg-black/70 border border-zinc-850 rounded-xl p-3.5 text-xs font-mono flex items-center justify-between mt-auto">
                   <div className="flex flex-col gap-0.5">
                     <span className="text-zinc-500 text-[10px] uppercase flex items-center gap-1">
                       <Hash className="w-3 h-3 text-[#c8ff00]" />
@@ -199,15 +210,15 @@ export default function CertificatesSection() {
               </div>
 
               {/* Certificate Preview Card with Click to Enlarge */}
-              <div className="relative mt-2">
+              <div className="relative mt-auto">
                 <div
                   onClick={() => setSelectedCert(cert)}
-                  className="relative w-full h-64 sm:h-72 rounded-xl overflow-hidden bg-black/90 border border-zinc-800 group-hover:border-[#c8ff00]/40 transition-all duration-300 cursor-pointer flex items-center justify-center p-2 group/img"
+                  className="relative w-full h-64 sm:h-72 rounded-xl overflow-hidden bg-gradient-to-b from-[#0c0c0c] to-[#050505] border border-zinc-850 group-hover:border-[#c8ff00]/40 transition-all duration-300 cursor-pointer flex items-center justify-center p-3.5 sm:p-4 group/img shadow-inner"
                 >
                   <img
                     src={cert.imageSrc}
                     alt={cert.title}
-                    className="w-full h-full object-contain rounded-lg transition-transform duration-500 group-hover/img:scale-[1.02]"
+                    className="max-h-full max-w-full object-contain rounded-lg transition-transform duration-500 group-hover/img:scale-[1.02] shadow-[0_6px_25px_rgba(0,0,0,0.85)] border border-zinc-850/80"
                   />
 
                   {/* Dark gradient overlay on hover with Zoom CTA */}
@@ -229,10 +240,6 @@ export default function CertificatesSection() {
                     <Maximize2 className="w-4 h-4" />
                   </button>
                 </div>
-
-                <p className="text-center text-[11px] text-zinc-500 mt-2 font-mono">
-                  {t("cert_view_modal")}
-                </p>
               </div>
             </div>
           ))}
@@ -272,89 +279,96 @@ export default function CertificatesSection() {
         </div>
       </div>
 
-      {/* Fullscreen Lightbox Modal for Certificate Inspection */}
-      {selectedCert && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200"
-          onClick={() => setSelectedCert(null)}
-        >
+      {/* Fullscreen Lightbox Modal for Certificate Inspection via Portal */}
+      {mounted &&
+        selectedCert &&
+        createPortal(
           <div
-            className="relative max-w-4xl w-full bg-[#0a0a0a] border border-zinc-700 rounded-2xl overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.95)] flex flex-col max-h-[95vh]"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-[9999] bg-black/92 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 animate-in fade-in duration-200"
+            onClick={() => setSelectedCert(null)}
           >
-            {/* Modal Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-800 bg-[#111]">
-              <div className="flex items-center gap-3">
-                {/* Official Logo in Modal (White, No Background) */}
-                <div className="flex items-center justify-center h-8">
-                  <img
-                    src={selectedCert.logoSrc}
-                    alt={selectedCert.logoAlt}
-                    className="h-6 w-auto max-w-[100px] object-contain opacity-95"
-                  />
+            <div
+              className="relative max-w-3xl w-full bg-[#0c0c0c] border border-zinc-700 rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.95)] flex flex-col max-h-[90vh] my-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-zinc-800 bg-[#121212] shrink-0">
+                <div className="flex items-center gap-3">
+                  {/* Official Logo in Modal (White, No Background) */}
+                  <div className="flex items-center justify-center h-8 sm:h-9">
+                    <img
+                      src={selectedCert.logoSrc}
+                      alt={selectedCert.logoAlt}
+                      className={`${
+                        selectedCert.id === "bls"
+                          ? "h-8 max-w-[130px]"
+                          : "h-6 max-w-[100px]"
+                      } w-auto object-contain opacity-95`}
+                    />
+                  </div>
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-white leading-tight">
+                      {selectedCert.title}
+                    </h4>
+                    <p className="text-[11px] text-zinc-400">{selectedCert.org}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-sm sm:text-base font-bold text-white leading-tight">
-                    {selectedCert.title}
-                  </h4>
-                  <p className="text-[11px] text-zinc-400">{selectedCert.org}</p>
+
+                <div className="flex items-center gap-2">
+                  <a
+                    href={selectedCert.imageSrc}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-colors"
+                    title="Open full image in new tab"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                  <button
+                    onClick={() => setSelectedCert(null)}
+                    className="p-2 rounded-lg bg-zinc-900 hover:bg-red-500/20 text-zinc-300 hover:text-red-400 border border-zinc-800 transition-colors cursor-pointer"
+                    aria-label={t("cert_close_preview")}
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <a
-                  href={selectedCert.imageSrc}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-colors"
-                  title="Open full image in new tab"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                </a>
+              {/* Modal Certificate Image Canvas */}
+              <div className="relative flex-1 overflow-hidden p-3 sm:p-5 flex items-center justify-center bg-black/90 min-h-0">
+                <img
+                  src={selectedCert.imageSrc}
+                  alt={selectedCert.title}
+                  className="max-h-[62vh] sm:max-h-[68vh] w-auto max-w-full object-contain rounded-lg border border-zinc-800 shadow-2xl"
+                />
+              </div>
+
+              {/* Modal Footer with Verification Info */}
+              <div className="px-4 sm:px-6 py-3 border-t border-zinc-850 bg-[#0d0d0d] flex flex-wrap items-center justify-between gap-3 text-xs font-mono shrink-0">
+                <div className="flex items-center gap-4 text-zinc-400">
+                  <span>
+                    <strong className="text-white">{selectedCert.idLabel}</strong>{" "}
+                    <span className="text-[#c8ff00]">{selectedCert.idValue}</span>
+                  </span>
+                  <span className="text-emerald-400 flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    {t("cert_verified_badge")}
+                  </span>
+                </div>
+
                 <button
                   onClick={() => setSelectedCert(null)}
-                  className="p-2 rounded-lg bg-zinc-900 hover:bg-red-500/20 text-zinc-300 hover:text-red-400 border border-zinc-800 transition-colors cursor-pointer"
-                  aria-label={t("cert_close_preview")}
+                  className="px-4 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition-colors cursor-pointer"
                 >
-                  <X className="w-5 h-5" />
+                  {t("cert_close_preview")}
                 </button>
               </div>
             </div>
-
-            {/* Modal Certificate Image Canvas */}
-            <div className="relative flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center bg-black min-h-[300px]">
-              <img
-                src={selectedCert.imageSrc}
-                alt={selectedCert.title}
-                className="max-h-[72vh] w-auto object-contain rounded-lg border border-zinc-800 shadow-2xl"
-              />
-            </div>
-
-            {/* Modal Footer with Verification Info */}
-            <div className="px-5 py-3 border-t border-zinc-850 bg-[#0d0d0d] flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-              <div className="flex items-center gap-4 text-zinc-400">
-                <span>
-                  <strong className="text-white">{selectedCert.idLabel}</strong>{" "}
-                  <span className="text-[#c8ff00]">{selectedCert.idValue}</span>
-                </span>
-                <span className="text-emerald-400 flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  {t("cert_verified_badge")}
-                </span>
-              </div>
-
-              <button
-                onClick={() => setSelectedCert(null)}
-                className="px-4 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition-colors cursor-pointer"
-              >
-                {t("cert_close_preview")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </section>
   );
 }

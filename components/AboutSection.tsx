@@ -32,56 +32,17 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="relative bg-[#070707] pt-8 md:pt-12 pb-20 md:pb-28 border-t border-zinc-900 overflow-hidden">
+    <section id="about" className="relative bg-[#070707] py-20 md:py-28 border-t border-zinc-900 overflow-hidden scroll-mt-20 md:scroll-mt-24">
       {/* Giant Background Watermark "ENGINEER" - Textured White Stencil */}
-      <div className="absolute inset-x-0 top-40 md:top-48 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
+      <div className="absolute inset-x-0 top-12 md:top-16 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
         <span className="watermark-textured-white text-[25vw] uppercase whitespace-nowrap tracking-wider">
           ENGINEER
         </span>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        {/* Top Metrics Row matching Image 2 (2000+ / 5+ / 100% / 1:1) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-8 md:pb-10 border-b border-zinc-800/80 text-right">
-          <div className="flex flex-col">
-            <span className="font-mono text-3xl md:text-5xl font-black text-white">
-              {t("about_stat_1_val")}
-            </span>
-            <span className="text-xs md:text-sm text-zinc-400 mt-1 font-medium">
-              {t("about_stat_1_lbl")}
-            </span>
-          </div>
-
-          <div className="flex flex-col">
-            <span className="font-mono text-3xl md:text-5xl font-black text-white">
-              {t("about_stat_2_val")}
-            </span>
-            <span className="text-xs md:text-sm text-zinc-400 mt-1 font-medium">
-              {t("about_stat_2_lbl")}
-            </span>
-          </div>
-
-          <div className="flex flex-col">
-            <span className="font-mono text-3xl md:text-5xl font-black text-[#c8ff00]">
-              {t("about_stat_3_val")}
-            </span>
-            <span className="text-xs md:text-sm text-zinc-400 mt-1 font-medium">
-              {t("about_stat_3_lbl")}
-            </span>
-          </div>
-
-          <div className="flex flex-col">
-            <span className="font-mono text-3xl md:text-5xl font-black text-white">
-              {t("about_stat_4_val")}
-            </span>
-            <span className="text-xs md:text-sm text-zinc-400 mt-1 font-medium">
-              {t("about_stat_4_lbl")}
-            </span>
-          </div>
-        </div>
-
         {/* Coach Story: Text on LEFT, Coach on RIGHT matching Image 2 */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center py-14 md:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pb-14 md:pb-20">
           {/* LEFT Column: Narrative & Philosophy (lg:col-span-7) */}
           <div className="lg:col-span-7 flex flex-col items-start text-right z-10 order-2 lg:order-1">
             {/* Tag */}
@@ -107,16 +68,6 @@ export default function AboutSection() {
               <p className="text-white font-semibold pt-1">{t("about_p_4")}</p>
             </div>
 
-            {/* HUD Micro Tag: 020 / STRATEGY / TRAINING / NUTRITION */}
-            <div className="flex items-center gap-3 text-xs font-mono text-zinc-500 bg-[#0d0d0d] border border-zinc-800 px-4 py-2">
-              <span className="text-[#c8ff00] font-bold">020</span>
-              <span className="text-zinc-700">|</span>
-              <span>STRATEGY</span>
-              <span className="text-zinc-700">/</span>
-              <span>TRAINING</span>
-              <span className="text-zinc-700">/</span>
-              <span>NUTRITION</span>
-            </div>
           </div>
 
           {/* RIGHT Column: Coach Visual (lg:col-span-5) */}

@@ -82,7 +82,7 @@ export default function PricingSection({ onSelectPackage }: PricingSectionProps)
   ];
 
   return (
-    <section id="packages" className="relative bg-[#070707] py-16 md:py-24 border-t border-zinc-900 overflow-hidden w-full">
+    <section id="packages" className="relative bg-[#070707] py-16 md:py-24 border-t border-zinc-900 overflow-hidden w-full scroll-mt-20 md:scroll-mt-24">
       {/* Background Cyber Grid */}
       <div className="absolute inset-0 bg-cyber-grid opacity-25 pointer-events-none" />
 
@@ -92,8 +92,6 @@ export default function PricingSection({ onSelectPackage }: PricingSectionProps)
       {/* Top HUD Indicators with Currency Selector Dropdown */}
       <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-8">
         <div className="flex flex-wrap items-center justify-between gap-4 text-right">
-          <div className="font-mono text-xs text-zinc-600 hidden md:block">009</div>
-
           <div className="flex items-center gap-2 font-mono text-[11px] text-[#c8ff00] uppercase tracking-wider">
             <span className="w-2 h-2 rounded-full bg-[#c8ff00]" />
             <span>PRICING PACKAGES // {currency}</span>
@@ -149,8 +147,6 @@ export default function PricingSection({ onSelectPackage }: PricingSectionProps)
               )}
             </div>
           </div>
-
-          <div className="font-mono text-xs text-zinc-600 hidden md:block">017</div>
         </div>
       </div>
 
@@ -284,7 +280,7 @@ export default function PricingSection({ onSelectPackage }: PricingSectionProps)
             </div>
 
             {/* FAQ Accordion nestled right under CHOOSE YOUR LEVEL exactly like Image 4 */}
-            <div id="faq" className="w-full pt-4 border-t border-zinc-850/80">
+            <div id="faq" className="w-full pt-4 border-t border-zinc-850/80 scroll-mt-24 md:scroll-mt-28">
               <h3 className="text-xl sm:text-2xl font-black text-white text-right mb-5">
                 {t("faq_title")}
               </h3>

@@ -14,6 +14,8 @@ import { MessageCircle } from "lucide-react";
 
 import LoadingScreen from "@/components/LoadingScreen";
 import ScrollReveal from "@/components/ScrollReveal";
+import ScrollToTop from "@/components/ScrollToTop";
+import SectionIndicator from "@/components/SectionIndicator";
 
 export default function Home() {
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
@@ -88,6 +90,12 @@ export default function Home() {
           تواصل مع الكابتن
         </span>
       </button>
+
+      {/* Floating Scroll To Top Button */}
+      <ScrollToTop />
+
+      {/* Floating Right Page Section Indicator (Horizontal Lines) */}
+      <SectionIndicator />
     </main>
   );
 }

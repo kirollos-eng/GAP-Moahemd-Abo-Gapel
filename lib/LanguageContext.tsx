@@ -80,7 +80,7 @@ export const translations = {
     cert_nasm_tag: "NASM-CPT • USA ACCREDITED",
 
     // BLS
-    cert_bls_title: "دعم الحياة الأساسي والإنعاش القلبي (BLS Provider)",
+    cert_bls_title: "دعم الحياة الأساسي والإنعاش القلبي (BLS\u00A0Provider)",
     cert_bls_org: "جمعية القلب الأمريكية (American Heart Association — AHA)",
     cert_bls_desc: "اعتماد دولي متقدم في الإنعاش القلبي الرئوي (CPR)، واستخدام أجهزة الصدمات (AED)، وتأمين الرياضي طبياً أثناء الأحمال البدنية الشاقة والجهد المرتفع.",
     cert_bls_id_lbl: "كود البطاقة الإلكترونية (eCard):",

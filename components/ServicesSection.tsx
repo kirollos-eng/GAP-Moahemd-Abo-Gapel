@@ -3,217 +3,283 @@
 import React from "react";
 import { SITE_CONFIG } from "@/lib/config";
 import CoachImagePlaceholder from "./CoachImagePlaceholder";
-import { useLanguage } from "@/lib/LanguageContext";
 
 export default function ServicesSection() {
-  const { t, isAr } = useLanguage();
-
   return (
-    <section id="services" className="relative bg-[#070707] py-20 md:py-28 border-t border-zinc-900 overflow-hidden">
+    <section
+      id="services"
+      className="relative bg-[#070707] py-16 md:py-24 border-t border-zinc-900 overflow-hidden scroll-mt-20 md:scroll-mt-24"
+    >
       {/* Background Cyber Grid */}
-      <div className="absolute inset-0 bg-cyber-grid opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-cyber-grid opacity-20 pointer-events-none" />
 
       {/* Atmospheric neon spot */}
-      <div className="absolute top-1/2 -left-28 w-96 h-96 bg-[#c8ff00]/6 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/3 -left-28 w-96 h-96 bg-[#c8ff00]/6 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#c8ff00]/4 rounded-full blur-[180px] pointer-events-none" />
 
-      {/* Giant Background Watermark "SERVICES" - Textured White Stencil */}
-      <div className="absolute inset-x-0 top-4 sm:top-6 md:top-8 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
-        <span className="watermark-textured-white text-[24vw] uppercase whitespace-nowrap tracking-wider">
-          SERVICES
-        </span>
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        {/* Header HUD Badges with generous bottom spacing so SERVICES doesn't collide with NUTRITION */}
-        <div className="flex flex-col items-start mb-24 sm:mb-28 md:mb-36">
-          <div className="flex items-center gap-2 font-mono text-[11px] tracking-widest text-zinc-400 uppercase">
-            <span className="text-[#c8ff00] font-bold">+</span>
-            <span>{t("services_badge")}</span>
+      <div className="relative w-full max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 z-10">
+        {/* Top-Left Section Header matching Image 3 */}
+        <div className="flex items-start gap-2.5 mb-10 md:mb-14 text-left" dir="ltr">
+          <span className="text-[#c8ff00] font-mono text-sm leading-none mt-0.5">+</span>
+          <div className="font-mono uppercase tracking-wider">
+            <span className="text-zinc-200 font-bold text-xs sm:text-sm block">SERVICES</span>
+            <span className="text-zinc-500 text-[10px] sm:text-xs block mt-0.5">BUILT AROUND YOU</span>
           </div>
-          <p className="text-zinc-500 font-mono text-[10px] md:text-xs tracking-wider uppercase mt-1">
-            {t("services_subbadge")}
-          </p>
         </div>
 
-        {/* Main Grid: Content (01, 02, 03), Coach Placeholder */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* 3 Pillars Column (lg:col-span-7) */}
-          <div className="lg:col-span-7 space-y-10 md:space-y-14 relative order-2 lg:order-1">
-            {/* Curved Neon Trajectory Line on the starting edge (Right in RTL, Left in LTR) */}
+        {/* Main Grid: Left Column (3 Services + 0% COPY-PASTE), Right Column (Coach) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start" dir="ltr">
+          {/* LEFT 8 COLUMNS: Services Stack & Promise */}
+          <div className="lg:col-span-8 xl:col-span-8 flex flex-col justify-between relative">
+            {/* SVG Dynamic Zigzag Neon Trajectory Line matching User Request */}
             <svg
-              className={`absolute top-6 ${
-                isAr ? "-right-3 sm:-right-5 md:-right-6 scale-x-[-1]" : "-left-3 md:-left-6"
-              } w-8 h-[88%] hidden sm:block pointer-events-none overflow-visible z-0`}
-              viewBox="0 0 40 500"
+              className="absolute inset-0 w-full h-[640px] hidden md:block pointer-events-none overflow-visible z-0"
+              viewBox="0 0 780 620"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
+              {/* Continuous Zig-Zag Path (Smooth C1 Curvature without sharp angles) */}
               <path
-                d="M 15 10 C 35 120, -10 200, 20 280 C 45 360, 5 440, 18 490"
+                id="serviceZigzagPath"
+                d="M 235 48 C 130 48, 48 100, 48 220 C 48 310, 110 350, 185 375 C 235 392, 220 460, 295 505 C 370 550, 510 550, 640 550"
                 stroke="#c8ff00"
-                strokeWidth="2.5"
+                strokeWidth="2.4"
                 strokeOpacity="0.8"
-                className="filter drop-shadow-[0_0_8px_#c8ff00]"
+                className="filter drop-shadow-[0_0_9px_#c8ff00]"
               />
-              <circle cx="15" cy="10" r="4.5" fill="#c8ff00" className="neon-glow-bullet" />
-              <circle cx="20" cy="280" r="4.5" fill="#c8ff00" className="neon-glow-bullet" />
-              <circle cx="18" cy="490" r="4.5" fill="#c8ff00" className="neon-glow-bullet" />
+
+              {/* Dot 1: Starts at NUTRITION on the RIGHT */}
+              <circle
+                cx="235"
+                cy="48"
+                r="5"
+                fill="#c8ff00"
+                className="filter drop-shadow-[0_0_12px_#c8ff00]"
+              />
+
+              {/* Dot 2: Node 02 at the LEFT of shifted TRAINING */}
+              <circle
+                cx="48"
+                cy="220"
+                r="6"
+                fill="#c8ff00"
+                className="filter drop-shadow-[0_0_14px_#c8ff00]"
+              />
+
+              {/* Dot 3: Highlight Point at SUPPORT (over letter T) */}
+              <circle
+                cx="185"
+                cy="375"
+                r="5.5"
+                fill="#c8ff00"
+                className="filter drop-shadow-[0_0_12px_#c8ff00]"
+              />
+
+              {/* Dot 4: Subtle marker at far right of 0% COPY-PASTE */}
+              <circle
+                cx="640"
+                cy="550"
+                r="4"
+                fill="#c8ff00"
+                className="filter drop-shadow-[0_0_10px_#c8ff00]"
+              />
+
+              {/* Animated Energy Particle flowing along the zigzag path */}
+              <circle r="3.5" fill="#ffffff" className="filter drop-shadow-[0_0_8px_#ffffff]">
+                <animateMotion
+                  dur="4s"
+                  repeatCount="indefinite"
+                  path="M 235 48 C 130 48, 48 100, 48 220 C 48 310, 110 350, 185 375 C 235 392, 220 460, 295 505 C 370 550, 510 550, 640 550"
+                  calcMode="spline"
+                  keyTimes="0; 0.5; 1"
+                  keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
+                />
+              </circle>
             </svg>
 
-            {/* Block 01: NUTRITION */}
-            <div className={`relative group ${isAr ? "pr-6 sm:pr-10 text-right" : "pl-6 sm:pl-10 text-left"}`}>
-              {/* Background Watermark "NUTRITION" */}
-              <div className={`absolute top-1/2 -translate-y-1/2 ${isAr ? "right-0" : "left-0"} pointer-events-none select-none overflow-hidden z-0`}>
-                <span className="watermark-textured-white text-7xl sm:text-8xl md:text-9xl font-black uppercase tracking-wider">
-                  NUTRITION
-                </span>
+            <div className="space-y-12 md:space-y-16 relative z-10">
+              {/* ===================== ROW 01: NUTRITION ===================== */}
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 lg:gap-8 group">
+                {/* Left Number Marker */}
+                <div className="flex items-center md:flex-col justify-center font-mono shrink-0 w-8 text-left md:text-center gap-2 md:gap-1">
+                  <span className="text-sm sm:text-base font-bold text-zinc-300">01</span>
+                  <span className="text-zinc-600 text-xs font-bold">+</span>
+                </div>
+
+                {/* Stencil Watermark Word */}
+                <div className="shrink-0 select-none min-w-[170px] sm:min-w-[210px] lg:min-w-[240px]">
+                  <span className="watermark-textured-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono tracking-tight uppercase block leading-none">
+                    NUTRITION
+                  </span>
+                </div>
+
+                {/* Arabic Title */}
+                <div className="shrink-0 text-right md:text-right min-w-[140px] sm:min-w-[160px]" dir="rtl">
+                  <h3 className="text-xl sm:text-2xl lg:text-[26px] font-black leading-snug">
+                    <span className="text-white block">خطة تغذية</span>
+                    <span className="text-[#c8ff00] block mt-0.5 drop-shadow-[0_0_12px_rgba(200,255,0,0.35)]">
+                      مرنة ومحسوبة
+                    </span>
+                  </h3>
+                </div>
+
+                {/* Vertical Divider */}
+                <div className="hidden md:block w-[1.5px] h-20 bg-zinc-800/90 shrink-0 mx-1" />
+
+                {/* Bullets List */}
+                <div className="flex-1 text-right" dir="rtl">
+                  <ul className="space-y-1.5 text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
+                    <li className="flex items-start gap-2 justify-start">
+                      <span className="text-zinc-500 font-bold select-none">•</span>
+                      <span>تحديد احتياجك من السعرات بدقة.</span>
+                    </li>
+                    <li className="flex items-start gap-2 justify-start">
+                      <span className="text-zinc-500 font-bold select-none">•</span>
+                      <span>توزيع الماكروز بما يناسب هدفك ونوع جسمك.</span>
+                    </li>
+                    <li className="flex items-start gap-2 justify-start">
+                      <span className="text-zinc-500 font-bold select-none">•</span>
+                      <span>رحلات غذائية مرنة تراعي نمط حياتك.</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
 
-              {/* Block Header: Badge Number + Title Starting at the same point */}
-              <div className="relative z-10 flex items-center gap-3 mb-3">
-                <span className="font-mono text-xs md:text-sm font-bold text-[#c8ff00] bg-[#c8ff00]/10 border border-[#c8ff00]/30 px-2 py-0.5 rounded shrink-0">
-                  01
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
-                  {t("service_01_title")}{" "}
-                  <span className="text-[#c8ff00]">{t("service_01_highlight")}</span>
-                </h3>
+              {/* ===================== ROW 02: TRAINING (Shifted to the Right) ===================== */}
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 lg:gap-8 group md:translate-x-12 lg:translate-x-16 transition-transform">
+                {/* Left Number Marker */}
+                <div className="flex items-center md:flex-col justify-center font-mono shrink-0 w-8 text-left md:text-center gap-2 md:gap-1.5">
+                  <span className="text-sm sm:text-base font-bold text-zinc-300">02</span>
+                </div>
+
+                {/* Stencil Watermark Word */}
+                <div className="shrink-0 select-none min-w-[170px] sm:min-w-[210px] lg:min-w-[240px]">
+                  <span className="watermark-textured-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono tracking-tight uppercase block leading-none">
+                    TRAINING
+                  </span>
+                </div>
+
+                {/* Arabic Title */}
+                <div className="shrink-0 text-right md:text-right min-w-[140px] sm:min-w-[160px]" dir="rtl">
+                  <h3 className="text-xl sm:text-2xl lg:text-[26px] font-black leading-snug">
+                    <span className="text-white block">برنامج تدريبي</span>
+                    <span className="text-white block">على أحدث</span>
+                    <span className="text-[#c8ff00] block mt-0.5 drop-shadow-[0_0_12px_rgba(200,255,0,0.35)]">
+                      الأسس العلمية
+                    </span>
+                  </h3>
+                </div>
+
+                {/* Vertical Divider */}
+                <div className="hidden md:block w-[1.5px] h-20 bg-zinc-800/90 shrink-0 mx-1" />
+
+                {/* Bullets List */}
+                <div className="flex-1 text-right" dir="rtl">
+                  <ul className="space-y-1.5 text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
+                    <li className="flex items-start gap-2 justify-start">
+                      <span className="text-zinc-500 font-bold select-none">•</span>
+                      <span>تصميم برنامج مخصص لهدفك ومستواك.</span>
+                    </li>
+                    <li className="flex items-start gap-2 justify-start">
+                      <span className="text-zinc-500 font-bold select-none">•</span>
+                      <span>حجم تدريب مناسب لتقدم مستمر وآمن.</span>
+                    </li>
+                    <li className="flex items-start gap-2 justify-start">
+                      <span className="text-zinc-500 font-bold select-none">•</span>
+                      <span>تطوير البرنامج بشكل دوري حسب نتائجك.</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
 
-              {/* Bullet Points: Unified starting edge */}
-              <ul className="relative z-10 space-y-2.5 text-zinc-300 text-xs sm:text-sm md:text-base leading-relaxed max-w-xl">
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#c8ff00] font-bold mt-0.5 shrink-0 text-base select-none">•</span>
-                  <span>{t("service_01_pt_1")}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#c8ff00] font-bold mt-0.5 shrink-0 text-base select-none">•</span>
-                  <span>{t("service_01_pt_2")}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#c8ff00] font-bold mt-0.5 shrink-0 text-base select-none">•</span>
-                  <span>{t("service_01_pt_3")}</span>
-                </li>
-              </ul>
+              {/* ===================== ROW 03: SUPPORT ===================== */}
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 lg:gap-8 group">
+                {/* Left Number Marker */}
+                <div className="flex items-center md:flex-col justify-center font-mono shrink-0 w-8 text-left md:text-center gap-2 md:gap-1">
+                  <span className="text-sm sm:text-base font-bold text-zinc-300">03</span>
+                  <span className="text-zinc-600 text-xs font-bold">+</span>
+                </div>
+
+                {/* Stencil Watermark Word */}
+                <div className="shrink-0 select-none min-w-[170px] sm:min-w-[210px] lg:min-w-[240px]">
+                  <span className="watermark-textured-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono tracking-tight uppercase block leading-none">
+                    SUPPORT
+                  </span>
+                </div>
+
+                {/* Arabic Title */}
+                <div className="shrink-0 text-right md:text-right min-w-[140px] sm:min-w-[160px]" dir="rtl">
+                  <h3 className="text-xl sm:text-2xl lg:text-[26px] font-black leading-snug">
+                    <span className="text-white block">دعم ومتابعة</span>
+                    <span className="text-white block">حقيقية – معايا</span>
+                    <span className="text-[#c8ff00] block mt-0.5 drop-shadow-[0_0_12px_rgba(200,255,0,0.35)]">
+                      أنا شخصياً
+                    </span>
+                  </h3>
+                </div>
+
+                {/* Vertical Divider */}
+                <div className="hidden md:block w-[1.5px] h-20 bg-zinc-800/90 shrink-0 mx-1" />
+
+                {/* Bullets List */}
+                <div className="flex-1 text-right" dir="rtl">
+                  <ul className="space-y-1.5 text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
+                    <li className="flex items-start gap-2 justify-start">
+                      <span className="text-zinc-500 font-bold select-none">•</span>
+                      <span>متابعة يومية وتواصل مباشر.</span>
+                    </li>
+                    <li className="flex items-start gap-2 justify-start">
+                      <span className="text-zinc-500 font-bold select-none">•</span>
+                      <span>مراجعة فيديوهات تمرينك عبر واتساب.</span>
+                    </li>
+                    <li className="flex items-start gap-2 justify-start">
+                      <span className="text-zinc-500 font-bold select-none">•</span>
+                      <span>تعديلات فورية لأي تحدي أو مشكلة.</span>
+                    </li>
+                    <li className="flex items-start gap-2 justify-start">
+                      <span className="text-zinc-500 font-bold select-none">•</span>
+                      <span>اشراف 1:1 باهتمام كامل.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
-            {/* Block 02: TRAINING */}
-            <div className={`relative group ${isAr ? "pr-6 sm:pr-10 text-right" : "pl-6 sm:pl-10 text-left"}`}>
-              {/* Background Watermark "TRAINING" */}
-              <div className={`absolute top-1/2 -translate-y-1/2 ${isAr ? "right-0" : "left-0"} pointer-events-none select-none overflow-hidden z-0`}>
-                <span className="watermark-textured-white text-7xl sm:text-8xl md:text-9xl font-black uppercase tracking-wider">
-                  TRAINING
-                </span>
+            {/* ===================== BOTTOM: 0% COPY-PASTE (BIG IN CENTER) & OUR PROMISE ===================== */}
+            <div className="mt-14 sm:mt-18 pt-8 border-t border-zinc-900/90 relative flex flex-col md:flex-row items-center justify-between gap-6">
+              {/* Left Box: OUR PROMISE */}
+              <div className="border border-zinc-800/80 bg-zinc-950/70 px-4 py-3 font-mono text-[10px] tracking-wider text-left shrink-0 self-start md:self-center">
+                <div className="text-zinc-300 font-bold">OUR PROMISE</div>
+                <div className="text-zinc-500 mt-1">NO TEMPLATES.</div>
+                <div className="text-zinc-500">JUST RESULTS.</div>
               </div>
 
-              {/* Block Header */}
-              <div className="relative z-10 flex items-center gap-3 mb-3">
-                <span className="font-mono text-xs md:text-sm font-bold text-[#c8ff00] bg-[#c8ff00]/10 border border-[#c8ff00]/30 px-2 py-0.5 rounded shrink-0">
-                  02
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
-                  {t("service_02_title")}{" "}
-                  <span>{t("service_02_highlight_1")}</span>{" "}
-                  <span className="text-[#c8ff00]">{t("service_02_highlight_2")}</span>
-                </h3>
+              {/* Centered Large Typography: 0% COPY-PASTE */}
+              <div className="flex-1 flex flex-col items-center justify-center text-center">
+                <div className="flex flex-wrap items-baseline justify-center gap-3 md:gap-5">
+                  <span className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black font-mono text-[#c8ff00] leading-none drop-shadow-[0_0_25px_rgba(200,255,0,0.45)]">
+                    0%
+                  </span>
+                  <span className="watermark-textured-white text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black font-mono tracking-wider uppercase leading-none select-none">
+                    COPY-PASTE
+                  </span>
+                </div>
+                <p className="text-lg sm:text-xl lg:text-2xl font-black text-white mt-3 text-center" dir="rtl">
+                  كل برنامج بيتبنى من الصفر ليك أنت.
+                </p>
               </div>
-
-              {/* Bullet Points */}
-              <ul className="relative z-10 space-y-2.5 text-zinc-300 text-xs sm:text-sm md:text-base leading-relaxed max-w-xl">
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#c8ff00] font-bold mt-0.5 shrink-0 text-base select-none">•</span>
-                  <span>{t("service_02_pt_1")}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#c8ff00] font-bold mt-0.5 shrink-0 text-base select-none">•</span>
-                  <span>{t("service_02_pt_2")}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#c8ff00] font-bold mt-0.5 shrink-0 text-base select-none">•</span>
-                  <span>{t("service_02_pt_3")}</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Block 03: SUPPORT */}
-            <div className={`relative group ${isAr ? "pr-6 sm:pr-10 text-right" : "pl-6 sm:pl-10 text-left"}`}>
-              {/* Background Watermark "SUPPORT" */}
-              <div className={`absolute top-1/2 -translate-y-1/2 ${isAr ? "right-0" : "left-0"} pointer-events-none select-none overflow-hidden z-0`}>
-                <span className="watermark-textured-white text-7xl sm:text-8xl md:text-9xl font-black uppercase tracking-wider">
-                  SUPPORT
-                </span>
-              </div>
-
-              {/* Block Header */}
-              <div className="relative z-10 flex items-center gap-3 mb-3">
-                <span className="font-mono text-xs md:text-sm font-bold text-[#c8ff00] bg-[#c8ff00]/10 border border-[#c8ff00]/30 px-2 py-0.5 rounded shrink-0">
-                  03
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
-                  {t("service_03_title")}{" "}
-                  <span>{t("service_03_highlight_1")}</span>{" "}
-                  <span className="text-[#c8ff00]">{t("service_03_highlight_2")}</span>
-                </h3>
-              </div>
-
-              {/* Bullet Points */}
-              <ul className="relative z-10 space-y-2.5 text-zinc-300 text-xs sm:text-sm md:text-base leading-relaxed max-w-xl">
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#c8ff00] font-bold mt-0.5 shrink-0 text-base select-none">•</span>
-                  <span>{t("service_03_pt_1")}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#c8ff00] font-bold mt-0.5 shrink-0 text-base select-none">•</span>
-                  <span>{t("service_03_pt_2")}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#c8ff00] font-bold mt-0.5 shrink-0 text-base select-none">•</span>
-                  <span>{t("service_03_pt_3")}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#c8ff00] font-bold mt-0.5 shrink-0 text-base select-none">•</span>
-                  <span>{t("service_03_pt_4")}</span>
-                </li>
-              </ul>
             </div>
           </div>
 
-          {/* Coach Column (lg:col-span-5) */}
-          <div className="lg:col-span-5 relative flex flex-col items-center justify-center order-1 lg:order-2">
+          {/* RIGHT 4 COLUMNS: Coach Silhouette / Photo Container */}
+          <div className="lg:col-span-4 xl:col-span-4 relative flex items-end justify-center min-h-[500px] lg:min-h-[660px] h-full">
             <CoachImagePlaceholder
               src={SITE_CONFIG.coachImages.services}
-              alt="كابتن محمد أحمد - مسرح البطولات"
+              alt="كابتن محمد أبو جبل (GAP)"
               variant="services"
-              poseLabel="صورة الكابتن (البطولات)"
+              poseLabel="صورة كابتن محمد أبو جبل"
+              className="z-10"
             />
-          </div>
-        </div>
-
-        {/* Big Impact Promise Card: "0% COPY-PASTE" */}
-        <div className="mt-16 bg-[#0c0c0c] border border-zinc-800 p-6 md:p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-          {/* Glowing top line */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#c8ff00] to-transparent" />
-
-          {/* Left HUD Promise Tag */}
-          <div className="font-mono text-xs text-zinc-400 border border-zinc-800 px-4 py-3 bg-zinc-950/70 flex flex-col gap-0.5 text-left self-start md:self-auto">
-            <div className="text-zinc-300 font-bold tracking-wider">OUR PROMISE</div>
-            <div className="text-zinc-500">NO TEMPLATES.</div>
-            <div className="text-[#c8ff00] font-semibold">JUST RESULTS.</div>
-          </div>
-
-          {/* Main 0% COPY-PASTE typography */}
-          <div className="text-center md:text-right flex-1">
-            <div className="flex flex-wrap items-baseline justify-center md:justify-start gap-3 md:gap-4 mb-2">
-              <span className="text-6xl sm:text-7xl md:text-8xl font-black font-mono text-[#c8ff00] tracking-tight neon-glow-text">
-                0%
-              </span>
-              <span className="text-4xl sm:text-5xl md:text-7xl font-black font-mono tracking-widest text-zinc-100 uppercase">
-                COPY-PASTE
-              </span>
-            </div>
-            <p className="text-base md:text-lg text-zinc-300 font-medium">
-              {t("services_copypaste_sub")}
-            </p>
           </div>
         </div>
       </div>

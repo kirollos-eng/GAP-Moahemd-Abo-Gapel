@@ -225,8 +225,7 @@ body {
 
 @media (min-width: 1024px) {
   .curtain-menu-overlay {
-    overflow: hidden !important;
-    overflow-y: hidden !important;
+    overflow-y: auto !important;
   }
 }
 
@@ -238,6 +237,7 @@ body {
 /* Curtain Inner Content Slide & Fade */
 .curtain-inner-header,
 .curtain-inner-nav,
+.curtain-inner-social,
 .curtain-inner-footer {
   opacity: 0;
   transform: translateY(-20px);
@@ -266,6 +266,12 @@ body {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s, border-color 0.2s;
+}
+
+.curtain-menu-overlay.is-open .curtain-inner-social {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.45s ease-out 0.3s, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s;
 }
 
 .curtain-menu-overlay.is-open .curtain-inner-footer {
