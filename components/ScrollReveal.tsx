@@ -4,7 +4,14 @@ import { useEffect } from "react";
 
 export default function ScrollReveal() {
   useEffect(() => {
-    // Intersection Observer to reveal sections on scroll
+    // Ensure Hero is ALWAYS visible immediately
+    const hero = document.getElementById("hero");
+    if (hero) {
+      hero.classList.remove("section-reveal");
+      hero.classList.add("is-revealed");
+    }
+
+    // Intersection Observer to reveal subsequent sections on scroll
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -15,36 +22,17 @@ export default function ScrollReveal() {
         });
       },
       {
-        threshold: 0.1,
-        rootMargin: "0px 0px -70px 0px",
+        threshold: 0.08,
+        rootMargin: "0px 0px -50px 0px",
       }
     );
 
-    let heroRevealed = false;
-    const revealHero = () => {
-      if (heroRevealed) return;
-      heroRevealed = true;
-      const hero = document.querySelector("section");
-      if (hero) {
-        hero.classList.add("section-reveal");
-        // Slight delay so the user catches the entrance right as the eraser wipes
-        setTimeout(() => {
-          hero.classList.add("is-revealed");
-        }, 120);
-      }
-    };
-
     const observeSections = () => {
-      const sections = document.querySelectorAll("section, .section-reveal");
-      sections.forEach((sec, idx) => {
-        sec.classList.add("section-reveal");
-        // The first section (Hero) is reserved for revealHero
-        if (idx === 0) {
-          // If window has already scrolled down, reveal immediately
-          if (window.scrollY > 100) {
-            sec.classList.add("is-revealed");
-          }
-        } else {
+      // Only target sections AFTER the hero
+      const sections = document.querySelectorAll("section:not(#hero)");
+      sections.forEach((sec) => {
+        if (!sec.classList.contains("is-revealed")) {
+          sec.classList.add("section-reveal");
           observer.observe(sec);
         }
       });
@@ -52,13 +40,7 @@ export default function ScrollReveal() {
 
     observeSections();
 
-    // Listen for the eraser sweep event from LoadingScreen
-    window.addEventListener("gap-reveal-hero", revealHero);
-
-    // Fallback timer in case the event was missed or loading screen finished earlier
-    const fallbackTimer = setTimeout(revealHero, 2000);
-
-    // MutationObserver to automatically support any sections added dynamically
+    // Re-check when DOM changes
     const mutationObserver = new MutationObserver(() => {
       observeSections();
     });
@@ -69,8 +51,6 @@ export default function ScrollReveal() {
     });
 
     return () => {
-      window.removeEventListener("gap-reveal-hero", revealHero);
-      clearTimeout(fallbackTimer);
       observer.disconnect();
       mutationObserver.disconnect();
     };

@@ -3,7 +3,6 @@
 import React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/config";
-import CoachImagePlaceholder from "./CoachImagePlaceholder";
 import { useLanguage } from "@/lib/LanguageContext";
 
 interface HeroSectionProps {
@@ -49,7 +48,7 @@ export default function HeroSection({ onSelectPackage }: HeroSectionProps) {
   };
 
   return (
-    <section id="hero" className="relative min-h-[92vh] md:min-h-screen bg-[#070707] bg-cyber-grid pt-24 md:pt-28 pb-6 md:pb-10 overflow-hidden flex flex-col justify-between">
+    <section id="hero" className="relative min-h-screen bg-[#070707] bg-cyber-grid pt-16 sm:pt-20 md:pt-22 pb-4 sm:pb-6 overflow-hidden flex flex-col justify-between">
       {/* Subtle Random Twinkling Cosmic Stars in the Background */}
       <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
         {HERO_STARS.map((star, idx) => (
@@ -83,184 +82,85 @@ export default function HeroSection({ onSelectPackage }: HeroSectionProps) {
         ))}
       </div>
 
-      {/* Giant Background Watermark "MOHAMED ABO GAPEL" - Textured White Stencil (Full Visibility, Increased Scale) */}
-      <div className="absolute inset-x-0 top-14 md:top-18 lg:top-20 flex items-center justify-center pointer-events-none select-none z-0 px-2">
-        <span className="watermark-textured-white text-[10vw] sm:text-[11.5vw] md:text-[12.8vw] lg:text-[13.8vw] font-black uppercase whitespace-nowrap tracking-tight text-center block w-full leading-none scale-y-110">
-          {SITE_CONFIG.coachName}
-        </span>
-      </div>
 
       {/* Atmospheric lighting accents */}
       <div className="absolute top-1/4 -left-20 w-80 h-80 bg-[#c8ff00]/10 rounded-full blur-[130px] pointer-events-none" />
       <div className="absolute top-1/3 right-10 w-96 h-96 bg-[#c8ff00]/8 rounded-full blur-[140px] pointer-events-none" />
 
+      {/* Main Hero Container - Centered Typography & Call to Action */}
+      <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 md:px-8 z-10 flex-1 min-h-0 flex flex-col items-center justify-center text-center pt-20 sm:pt-28 md:pt-32 pb-4 sm:pb-6">
+        {/* Main Headline */}
+        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.18] tracking-tight mb-3 sm:mb-4 text-center">
+          <span className="block">{t("hero_title_1")}</span>
+          <span className="text-[#c8ff00] drop-shadow-[0_0_20px_rgba(200,255,0,0.45)] block mt-1.5 sm:mt-2">
+            {t("hero_title_2")}
+          </span>
+        </h1>
 
-      {/* Main Hero Container - Full Width, Coach in the CENTER, Typography on the far LEFT */}
-      <div className="relative w-full max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 z-10 my-auto min-h-[520px] md:min-h-[620px] flex items-center">
-        {/* CENTER: Coach Silhouette / Photo Container (Mathematically Centered in Viewport) */}
-        <div className="lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:bottom-0 w-full max-w-[460px] md:max-w-[540px] h-[460px] md:h-[600px] flex items-end justify-center z-10 pointer-events-none mb-6 lg:mb-0">
-          {/* SVG Glowing Yellow-Green Trajectory Curve swooping across behind coach */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
-            viewBox="0 0 500 500"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        {/* Subtitle */}
+        <p className="text-xs sm:text-sm md:text-base text-zinc-400 max-w-xl leading-relaxed mb-6 sm:mb-8 text-center mx-auto px-2">
+          {t("hero_subtitle")}
+        </p>
+
+        {/* Buttons Row - Full width stacked on mobile, row on tablet/desktop */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none mx-auto">
+          <a
+            href="#packages"
+            onClick={handleScrollToPlans}
+            className="w-full sm:w-auto px-7 py-3 bg-[#c8ff00] hover:bg-[#b8ec00] text-black font-extrabold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-[0_0_25px_rgba(200,255,0,0.35)] hover:shadow-[0_0_35px_rgba(200,255,0,0.6)] active:scale-95 flex items-center justify-center cursor-pointer"
           >
-            <path
-              d="M -50 320 C 80 340, 140 220, 260 250 C 360 280, 420 180, 480 120"
-              stroke="#c8ff00"
-              strokeWidth="2.2"
-              strokeDasharray="6 6"
-              className="opacity-40"
-            />
-            <path
-              d="M 20 380 C 140 380, 180 260, 320 230 C 400 200, 440 120, 470 90"
-              stroke="#c8ff00"
-              strokeWidth="2.8"
-              className="opacity-80 filter drop-shadow-[0_0_10px_#c8ff00]"
-            />
+            <span>{t("hero_cta_primary")}</span>
+          </a>
 
-            {/* Fast Glowing Energy Pulse Circle */}
-            <g>
-              <circle r="6" fill="#c8ff00" className="filter drop-shadow-[0_0_14px_#c8ff00]">
-                <animateMotion
-                  path="M 20 380 C 140 380, 180 260, 320 230 C 400 200, 440 120, 470 90"
-                  dur="2.6s"
-                  repeatCount="indefinite"
-                  calcMode="spline"
-                  keyTimes="0; 0.65; 1"
-                  keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
-                />
-                <animate
-                  attributeName="opacity"
-                  values="0; 0.3; 1; 1; 0; 0"
-                  keyTimes="0; 0.08; 0.22; 0.58; 0.68; 1"
-                  dur="2.6s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle r="3" fill="#ffffff" className="filter drop-shadow-[0_0_8px_#ffffff]">
-                <animateMotion
-                  path="M 20 380 C 140 380, 180 260, 320 230 C 400 200, 440 120, 470 90"
-                  dur="2.6s"
-                  repeatCount="indefinite"
-                  calcMode="spline"
-                  keyTimes="0; 0.65; 1"
-                  keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
-                />
-                <animate
-                  attributeName="opacity"
-                  values="0; 0.4; 1; 1; 0; 0"
-                  keyTimes="0; 0.08; 0.22; 0.58; 0.68; 1"
-                  dur="2.6s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-            </g>
-          </svg>
-
-          {/* Coach Silhouette / Photo Container */}
-          <CoachImagePlaceholder
-            src={SITE_CONFIG.coachImages.hero}
-            alt="كابتن محمد أبو جبل (GAP)"
-            variant="hero"
-            poseLabel="صورة كابتن محمد أبو جبل"
-            className="z-10 pointer-events-auto"
-          />
-        </div>
-
-        {/* 12-Column Responsive Layout: Text on the far LEFT, Coach in the CENTER, HUD on the RIGHT */}
-        <div
-          className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8 items-center w-full relative z-20"
-          dir="ltr"
-        >
-          {/* Typography & Call to Action (Left-Aligned matching coach image mockup) */}
-          <div className="lg:col-span-4 xl:col-span-4 flex flex-col items-start text-left z-20 pt-6 lg:pt-14">
-            {/* Main Headline (Left-aligned) */}
-            <h1 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] font-black text-white leading-[1.12] tracking-tight mb-4 text-left">
-              <span>{t("hero_title_1")}</span>
-              <br />
-              <span>{t("hero_title_2")}</span>
-              <br />
-              <span className="text-[#c8ff00] drop-shadow-[0_0_15px_rgba(200,255,0,0.4)] inline-block mt-0.5">
-                {t("hero_title_3")}
-              </span>
-            </h1>
-
-            {/* Subtitle (Left-aligned) */}
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-sm leading-relaxed mb-6 text-left">
-              {t("hero_subtitle")}
-            </p>
-
-            {/* Buttons Row (Left-aligned flush with text) */}
-            <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-              <a
-                href="#packages"
-                onClick={handleScrollToPlans}
-                className="w-full sm:w-auto px-6 py-2.5 sm:px-7 sm:py-3 bg-[#c8ff00] hover:bg-[#b8ec00] text-black font-extrabold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-[0_0_20px_rgba(200,255,0,0.3)] hover:shadow-[0_0_30px_rgba(200,255,0,0.5)] active:scale-95 flex items-center justify-center cursor-pointer"
-              >
-                <span>{t("hero_cta_primary")}</span>
-              </a>
-
-              <a
-                href="#about"
-                className="w-full sm:w-auto px-6 py-2.5 sm:px-7 sm:py-3 bg-[#0a0a0a] hover:bg-zinc-900 text-white border border-zinc-750 hover:border-zinc-500 font-bold text-xs sm:text-sm transition-all duration-300 text-center flex items-center justify-center"
-              >
-                <span>{t("hero_cta_secondary")}</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Dedicated Center Spacing for Coach Body */}
-          <div className="hidden lg:block lg:col-span-4 xl:col-span-4 pointer-events-none" />
-
-          {/* Opposite Column (On the RIGHT): Clean Spacing */}
-          <div
-            className="hidden lg:block lg:col-span-4 xl:col-span-4 pointer-events-none z-20"
-          />
+          <a
+            href="#about"
+            className="w-full sm:w-auto px-7 py-3 bg-[#0a0a0a] hover:bg-zinc-900 text-white border border-zinc-750 hover:border-zinc-500 font-bold text-xs sm:text-sm transition-all duration-300 text-center flex items-center justify-center"
+          >
+            <span>{t("hero_cta_secondary")}</span>
+          </a>
         </div>
       </div>
 
       {/* Bottom Sleek Metrics Bar - 100% Symmetrical & Centered */}
-      <div className="relative z-20 w-full max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 mt-6 md:mt-10">
-        <div className="bg-[#0b0b0b]/95 border-y border-zinc-800 backdrop-blur-md py-4 md:py-6 px-4 md:px-8">
-          <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-4 md:gap-0 items-center" dir="ltr">
+      <div className="relative z-20 w-full max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 mt-1 sm:mt-2 shrink-0">
+        <div className="bg-[#0b0b0b]/95 border-y border-zinc-800 backdrop-blur-md py-2.5 sm:py-3 px-4 md:px-8">
+          <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-3 md:gap-0 items-center" dir="ltr">
             {/* Stat 1: سنوات خبرة */}
-            <div className="flex flex-col items-center justify-center text-center md:border-r border-zinc-800/80 px-2 sm:px-4 py-2">
-              <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold font-mono text-white">
+            <div className="flex flex-col items-center justify-center text-center md:border-r border-zinc-800/80 px-2 sm:px-4 py-1">
+              <div className="text-xl sm:text-2xl md:text-3xl font-extrabold font-mono text-white">
                 {t("hero_stat_1_val")}
               </div>
-              <div className="text-xs sm:text-sm text-zinc-400 mt-1 font-medium">{t("hero_stat_1_lbl")}</div>
+              <div className="text-[10px] sm:text-xs text-zinc-400 mt-0.5 font-medium">{t("hero_stat_1_lbl")}</div>
             </div>
 
             {/* Stat 2: عملاء حول العالم */}
-            <div className="flex flex-col items-center justify-center text-center md:border-r border-zinc-800/80 px-2 sm:px-4 py-2">
-              <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold font-mono text-white">
+            <div className="flex flex-col items-center justify-center text-center md:border-r border-zinc-800/80 px-2 sm:px-4 py-1">
+              <div className="text-xl sm:text-2xl md:text-3xl font-extrabold font-mono text-white">
                 {t("hero_stat_2_val")}
               </div>
-              <div className="text-xs sm:text-sm text-zinc-400 mt-1 font-medium">{t("hero_stat_2_lbl")}</div>
+              <div className="text-[10px] sm:text-xs text-zinc-400 mt-0.5 font-medium">{t("hero_stat_2_lbl")}</div>
             </div>
 
             {/* Stat 3: برامج مخصصة */}
-            <div className="flex flex-col items-center justify-center text-center md:border-r border-zinc-800/80 px-2 sm:px-4 py-2">
-              <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold font-mono text-white">
+            <div className="flex flex-col items-center justify-center text-center md:border-r border-zinc-800/80 px-2 sm:px-4 py-1">
+              <div className="text-xl sm:text-2xl md:text-3xl font-extrabold font-mono text-white">
                 {t("hero_stat_3_val")}
               </div>
-              <div className="text-xs sm:text-sm text-zinc-400 mt-1 font-medium">{t("hero_stat_3_lbl")}</div>
+              <div className="text-[10px] sm:text-xs text-zinc-400 mt-0.5 font-medium">{t("hero_stat_3_lbl")}</div>
             </div>
 
             {/* Stat 4: نسبة الالتزام */}
-            <div className="flex flex-col items-center justify-center text-center md:border-r border-zinc-800/80 px-2 sm:px-4 py-2">
-              <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold font-mono text-white flex items-baseline justify-center gap-1">
-                <span>92</span>
+            <div className="flex flex-col items-center justify-center text-center md:border-r border-zinc-800/80 px-2 sm:px-4 py-1">
+              <div className="text-xl sm:text-2xl md:text-3xl font-extrabold font-mono text-white flex items-baseline justify-center gap-1">
+                <span>86</span>
                 <span className="text-[#c8ff00]">%</span>
               </div>
-              <div className="text-xs sm:text-sm text-zinc-400 mt-1 font-medium">{t("hero_stat_4_lbl")}</div>
+              <div className="text-[10px] sm:text-xs text-zinc-400 mt-0.5 font-medium">{t("hero_stat_4_lbl")}</div>
             </div>
 
             {/* Slogan on far right */}
-            <div className="col-span-2 sm:col-span-2 md:col-span-1 flex flex-col justify-center items-center text-center px-2 sm:px-4 py-2" dir="rtl">
-              <p className="text-xs md:text-sm font-semibold text-zinc-300 leading-snug">
+            <div className="col-span-2 sm:col-span-2 md:col-span-1 flex flex-col justify-center items-center text-center px-2 sm:px-4 py-1" dir="rtl">
+              <p className="text-[11px] sm:text-xs md:text-xs lg:text-sm font-semibold text-zinc-300 leading-snug">
                 {t("hero_stat_quote_1")}
                 <br />
                 <span className="text-[#c8ff00] font-bold">{t("hero_stat_quote_2")}</span>

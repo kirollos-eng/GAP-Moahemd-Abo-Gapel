@@ -12,6 +12,7 @@ interface SectionItem {
 const SECTIONS: SectionItem[] = [
   { id: "hero", labelAr: "الرئيسية", labelEn: "Hero" },
   { id: "about", labelAr: "عن الكابتن", labelEn: "About" },
+  { id: "process", labelAr: "طريقة العمل", labelEn: "Process" },
   { id: "certificates", labelAr: "الشهادات", labelEn: "Certifications" },
   { id: "services", labelAr: "الخدمات", labelEn: "Services" },
   { id: "packages", labelAr: "الباقات", labelEn: "Packages" },

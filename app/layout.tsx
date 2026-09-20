@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cairo, Outfit, JetBrains_Mono, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import { CurrencyProvider } from "@/lib/CurrencyContext";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#070707",
+};
 
 const cairo = Cairo({
   variable: "--font-cairo",
@@ -29,9 +36,9 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "MOHAMED ABO GAPEL | تدريب أونلاين متهندس على جسمك وهدفك",
-  description: "تدريب أونلاين برايفت متهندس على جسمك وهدفك — خطة تغذية مرنة ومحسوبة، برنامج تدريبي علمي، ومتابعة شخصية مباشرة 1:1 مع الكابتن محمد أبو جبل (GAP).",
-  keywords: ["تدريب أونلاين", "مدرب شخصي", "محمد أبو جبل", "GAP", "كمال أجسام", "باقات تدريب الإمارات", "خسارة دهون", "بناء عضلات"],
+  title: "GAP Coaching",
+  description: "تدريب أونلاين مبني علمياً على جسمك وهدفك — خطة تغذية مرنة ومحسوبة، برنامج تدريبي علمي، ومتابعة شخصية مباشرة 1:1 مع GAP Coaching.",
+  keywords: ["تدريب أونلاين", "مدرب شخصي", "GAP", "GAP Coaching", "كمال أجسام", "باقات تدريب الإمارات", "خسارة دهون", "بناء عضلات"],
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -42,16 +49,16 @@ export const metadata: Metadata = {
     apple: "/icon.png",
   },
   openGraph: {
-    title: "MOHAMED ABO GAPEL (GAP) | مدرب كمال أجسام وتغذية رياضية",
-    description: "جسمك مش صدفة.. إبنه بحساب. برامج تدريب وتغذية مخصصة 100% بدون نسخ ولصق.",
+    title: "GAP Coaching",
+    description: "اصنع نسختك الأفضل بأعلى معايير علمية مع GAP Coaching. برامج تدريب وتغذية مخصصة 100% بدون نسخ ولصق.",
     locale: "ar_AE",
     type: "website",
     images: [
       {
-        url: "https://res.cloudinary.com/dv3f33hvk/image/upload/v1789429102/WhatsApp_Image_2026-09-15_at_02.19_1_xeoslu.png",
+        url: "/logo-gap.png",
         width: 1200,
         height: 630,
-        alt: "MOHAMED ABO GAPEL (GAP)",
+        alt: "GAP COACHING",
       },
     ],
   },

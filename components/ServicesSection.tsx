@@ -1,10 +1,67 @@
 "use client";
 
 import React from "react";
-import { SITE_CONFIG } from "@/lib/config";
-import CoachImagePlaceholder from "./CoachImagePlaceholder";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function ServicesSection() {
+  const { t, isAr } = useLanguage();
+
+  const services = [
+    {
+      num: "01",
+      watermark: "NUTRITION",
+      titleMain: t("service_01_title"),
+      titleHighlight: t("service_01_highlight"),
+      specMain: t("service_01_spec_main"),
+      specSub: t("service_01_spec_sub"),
+    },
+    {
+      num: "02",
+      watermark: "TRAINING",
+      titleMain: t("service_02_title"),
+      titleHighlight: t("service_02_highlight"),
+      specMain: t("service_02_spec_main"),
+      specSub: t("service_02_spec_sub"),
+    },
+    {
+      num: "03",
+      watermark: "SUPPORT",
+      titleMain: t("service_03_title"),
+      titleHighlight: t("service_03_highlight"),
+      specMain: t("service_03_spec_main"),
+      specSub: t("service_03_spec_sub"),
+    },
+  ];
+
+  // Arabic Path (RTL):
+  // Col 1 (NUTRITION) is at x=1000, Col 2 (TRAINING) is at x=600, Col 3 (SUPPORT) is at x=200.
+  // Station dots at y=70.
+  // After Col 3 at (200, 70), line loops down the left side, sweeps inward, and lands cleanly ABOVE 0% COPY-PASTE at (600, 368).
+  const arabicPath =
+    "M 1160 100 C 1110 100, 1060 70, 1000 70 C 910 70, 870 145, 800 145 C 730 145, 690 70, 600 70 C 510 70, 470 145, 400 145 C 330 145, 290 70, 200 70 C 110 70, 45 130, 45 220 C 45 295, 80 360, 200 365 C 330 368, 460 368, 600 368";
+
+  // English Path (LTR):
+  // Col 1 (NUTRITION) is at x=200, Col 2 (TRAINING) is at x=600, Col 3 (SUPPORT) is at x=1000.
+  // Station dots at y=70.
+  // After Col 3 at (1000, 70), line loops down the right side, sweeps inward, and lands cleanly ABOVE 0% COPY-PASTE at (600, 368).
+  const englishPath =
+    "M 40 100 C 90 100, 140 70, 200 70 C 290 70, 330 145, 400 145 C 470 145, 510 70, 600 70 C 690 70, 730 145, 800 145 C 870 145, 910 70, 1000 70 C 1090 70, 1155 130, 1155 220 C 1155 295, 1120 360, 1000 365 C 870 368, 740 368, 600 368";
+
+  const currentPath = isAr ? arabicPath : englishPath;
+
+  // Mobile Zigzag Path (< md):
+  // Clean S-curve zigzag connecting:
+  // Node 1 (Service 1) -> Node 2 (Service 2) -> Node 3 (Service 3) -> Landing (Center above 0% COPY-PASTE)
+  const mobileArPath =
+    "M 260 75 C 260 170, 100 170, 100 265 C 100 360, 260 360, 260 455 C 260 535, 180 545, 180 595";
+  const mobileEnPath =
+    "M 100 75 C 100 170, 260 170, 260 265 C 260 360, 100 360, 100 455 C 100 535, 180 545, 180 595";
+
+  const mobileCurrentPath = isAr ? mobileArPath : mobileEnPath;
+  const pt1X = isAr ? "260" : "100";
+  const pt2X = isAr ? "100" : "260";
+  const pt3X = isAr ? "260" : "100";
+
   return (
     <section
       id="services"
@@ -13,276 +70,374 @@ export default function ServicesSection() {
       {/* Background Cyber Grid */}
       <div className="absolute inset-0 bg-cyber-grid opacity-20 pointer-events-none" />
 
-      {/* Atmospheric neon spot */}
-      <div className="absolute top-1/3 -left-28 w-96 h-96 bg-[#c8ff00]/6 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#c8ff00]/4 rounded-full blur-[180px] pointer-events-none" />
+      {/* Atmospheric neon spots */}
+      <div className="absolute top-1/4 -left-28 w-96 h-96 bg-[#c8ff00]/6 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-1/3 -right-28 w-[500px] h-[500px] bg-[#c8ff00]/4 rounded-full blur-[180px] pointer-events-none" />
+
+      {/* Giant Background Watermark "SERVICES" */}
+      <div className="absolute inset-x-0 top-1 md:top-4 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden opacity-[0.09] md:opacity-[0.10]">
+        <span className="watermark-textured-white text-[24vw] sm:text-[22vw] md:text-[22vw] uppercase whitespace-nowrap tracking-normal block leading-none">
+          SERVICES
+        </span>
+      </div>
 
       <div className="relative w-full max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 z-10">
-        {/* Top-Left Section Header matching Image 3 */}
-        <div className="flex items-start gap-2.5 mb-10 md:mb-14 text-left" dir="ltr">
-          <span className="text-[#c8ff00] font-mono text-sm leading-none mt-0.5">+</span>
-          <div className="font-mono uppercase tracking-wider">
-            <span className="text-zinc-200 font-bold text-xs sm:text-sm block">SERVICES</span>
-            <span className="text-zinc-500 text-[10px] sm:text-xs block mt-0.5">BUILT AROUND YOU</span>
-          </div>
-        </div>
+        {/* Full Interactive Canvas: Wraps 3 Columns AND 0% COPY-PASTE */}
+        <div className="relative" dir={isAr ? "rtl" : "ltr"}>
 
-        {/* Main Grid: Left Column (3 Services + 0% COPY-PASTE), Right Column (Coach) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start" dir="ltr">
-          {/* LEFT 8 COLUMNS: Services Stack & Promise */}
-          <div className="lg:col-span-8 xl:col-span-8 flex flex-col justify-between relative">
-            {/* SVG Dynamic Zigzag Neon Trajectory Line matching User Request */}
+          {/* ===================== DESKTOP: Continuous Glowing Zigzag SVG Line ===================== */}
+          <div className="hidden md:block absolute inset-0 pointer-events-none z-0" dir="ltr">
             <svg
-              className="absolute inset-0 w-full h-[640px] hidden md:block pointer-events-none overflow-visible z-0"
-              viewBox="0 0 780 620"
+              className="w-full h-full overflow-visible"
+              viewBox="0 0 1200 520"
               fill="none"
+              preserveAspectRatio="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {/* Continuous Zig-Zag Path (Smooth C1 Curvature without sharp angles) */}
+              {/* Outer Neon Glow Path */}
               <path
-                id="serviceZigzagPath"
-                d="M 235 48 C 130 48, 48 100, 48 220 C 48 310, 110 350, 185 375 C 235 392, 220 460, 295 505 C 370 550, 510 550, 640 550"
+                d={currentPath}
                 stroke="#c8ff00"
-                strokeWidth="2.4"
-                strokeOpacity="0.8"
-                className="filter drop-shadow-[0_0_9px_#c8ff00]"
+                strokeWidth="7"
+                strokeOpacity="0.22"
+                className="filter blur-[6px]"
               />
 
-              {/* Dot 1: Starts at NUTRITION on the RIGHT */}
-              <circle
-                cx="235"
-                cy="48"
-                r="5"
-                fill="#c8ff00"
+              {/* Core Sharp Glowing Zigzag Neon Path */}
+              <path
+                d={currentPath}
+                stroke="#c8ff00"
+                strokeWidth="2.8"
+                strokeOpacity="0.9"
                 className="filter drop-shadow-[0_0_12px_#c8ff00]"
               />
 
-              {/* Dot 2: Node 02 at the LEFT of shifted TRAINING */}
-              <circle
-                cx="48"
-                cy="220"
-                r="6"
-                fill="#c8ff00"
-                className="filter drop-shadow-[0_0_14px_#c8ff00]"
-              />
-
-              {/* Dot 3: Highlight Point at SUPPORT (over letter T) */}
-              <circle
-                cx="185"
-                cy="375"
-                r="5.5"
-                fill="#c8ff00"
-                className="filter drop-shadow-[0_0_12px_#c8ff00]"
-              />
-
-              {/* Dot 4: Subtle marker at far right of 0% COPY-PASTE */}
-              <circle
-                cx="640"
-                cy="550"
-                r="4"
-                fill="#c8ff00"
-                className="filter drop-shadow-[0_0_10px_#c8ff00]"
-              />
-
-              {/* Animated Energy Particle flowing along the zigzag path */}
-              <circle r="3.5" fill="#ffffff" className="filter drop-shadow-[0_0_8px_#ffffff]">
+              {/* Animated Light Photon traveling along the entire path to 0% COPY-PASTE */}
+              <circle r="4.5" fill="#ffffff" className="filter drop-shadow-[0_0_14px_#ffffff]">
                 <animateMotion
-                  dur="4s"
+                  dur="4.8s"
                   repeatCount="indefinite"
-                  path="M 235 48 C 130 48, 48 100, 48 220 C 48 310, 110 350, 185 375 C 235 392, 220 460, 295 505 C 370 550, 510 550, 640 550"
+                  path={currentPath}
                   calcMode="spline"
                   keyTimes="0; 0.5; 1"
                   keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
                 />
               </circle>
+
+              {/* POINT 1 (Center of Col 1: x=1000 in AR, x=200 in EN) */}
+              <g>
+                <circle cx={isAr ? "1000" : "200"} cy="70" r="16" fill="#c8ff00" fillOpacity="0.18" className="animate-pulse" />
+                <circle cx={isAr ? "1000" : "200"} cy="70" r="7" fill="#c8ff00" className="filter drop-shadow-[0_0_14px_#c8ff00]" />
+                <circle cx={isAr ? "1000" : "200"} cy="70" r="3.5" fill="#ffffff" />
+              </g>
+
+              {/* POINT 2 (Center of Col 2: x=600) */}
+              <g>
+                <circle cx="600" cy="70" r="16" fill="#c8ff00" fillOpacity="0.18" className="animate-pulse" />
+                <circle cx="600" cy="70" r="7" fill="#c8ff00" className="filter drop-shadow-[0_0_14px_#c8ff00]" />
+                <circle cx="600" cy="70" r="3.5" fill="#ffffff" />
+              </g>
+
+              {/* POINT 3 (Center of Col 3: x=200 in AR, x=1000 in EN) */}
+              <g>
+                <circle cx={isAr ? "200" : "1000"} cy="70" r="16" fill="#c8ff00" fillOpacity="0.18" className="animate-pulse" />
+                <circle cx={isAr ? "200" : "1000"} cy="70" r="7" fill="#c8ff00" className="filter drop-shadow-[0_0_14px_#c8ff00]" />
+                <circle cx={isAr ? "200" : "1000"} cy="70" r="3.5" fill="#ffffff" />
+              </g>
+
+              {/* FINAL LANDING POINT: Resting cleanly above 0% COPY-PASTE */}
+              <g>
+                <circle cx="600" cy="368" r="16" fill="#c8ff00" fillOpacity="0.25" className="animate-ping" />
+                <circle cx="600" cy="368" r="7" fill="#c8ff00" className="filter drop-shadow-[0_0_16px_#c8ff00]" />
+                <circle cx="600" cy="368" r="3.5" fill="#ffffff" />
+              </g>
             </svg>
+          </div>
 
-            <div className="space-y-12 md:space-y-16 relative z-10">
-              {/* ===================== ROW 01: NUTRITION ===================== */}
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 lg:gap-8 group">
-                {/* Left Number Marker */}
-                <div className="flex items-center md:flex-col justify-center font-mono shrink-0 w-8 text-left md:text-center gap-2 md:gap-1">
-                  <span className="text-sm sm:text-base font-bold text-zinc-300">01</span>
-                  <span className="text-zinc-600 text-xs font-bold">+</span>
-                </div>
+          {/* ===================== MOBILE: ALTERNATING ZIGZAG TIMELINE (< md) ===================== */}
+          <div className="md:hidden relative w-full mb-12">
+            {/* Mobile Glowing Zigzag SVG Line */}
+            <div className="absolute inset-0 pointer-events-none z-0" dir="ltr">
+              <svg
+                className="w-full h-full overflow-visible"
+                viewBox="0 0 360 610"
+                fill="none"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* Outer Neon Glow Path */}
+                <path
+                  d={mobileCurrentPath}
+                  stroke="#c8ff00"
+                  strokeWidth="6"
+                  strokeOpacity="0.25"
+                  className="filter blur-[4px]"
+                />
 
-                {/* Stencil Watermark Word */}
-                <div className="shrink-0 select-none min-w-[170px] sm:min-w-[210px] lg:min-w-[240px]">
-                  <span className="watermark-textured-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono tracking-tight uppercase block leading-none">
-                    NUTRITION
-                  </span>
-                </div>
+                {/* Core Sharp Glowing Zigzag Neon Path */}
+                <path
+                  d={mobileCurrentPath}
+                  stroke="#c8ff00"
+                  strokeWidth="2.5"
+                  strokeOpacity="0.95"
+                  className="filter drop-shadow-[0_0_10px_#c8ff00]"
+                />
 
-                {/* Arabic Title */}
-                <div className="shrink-0 text-right md:text-right min-w-[140px] sm:min-w-[160px]" dir="rtl">
-                  <h3 className="text-xl sm:text-2xl lg:text-[26px] font-black leading-snug">
-                    <span className="text-white block">خطة تغذية</span>
-                    <span className="text-[#c8ff00] block mt-0.5 drop-shadow-[0_0_12px_rgba(200,255,0,0.35)]">
-                      مرنة ومحسوبة
-                    </span>
-                  </h3>
-                </div>
+                {/* Animated Light Photon traveling along the zigzag path */}
+                <circle r="4" fill="#ffffff" className="filter drop-shadow-[0_0_12px_#ffffff]">
+                  <animateMotion
+                    dur="4s"
+                    repeatCount="indefinite"
+                    path={mobileCurrentPath}
+                    calcMode="spline"
+                    keyTimes="0; 0.5; 1"
+                    keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
+                  />
+                </circle>
 
-                {/* Vertical Divider */}
-                <div className="hidden md:block w-[1.5px] h-20 bg-zinc-800/90 shrink-0 mx-1" />
+                {/* POINT 1: Exactly at Service 1 Station */}
+                <g>
+                  <circle cx={pt1X} cy="75" r="14" fill="#c8ff00" fillOpacity="0.2" className="animate-pulse" />
+                  <circle cx={pt1X} cy="75" r="6" fill="#c8ff00" className="filter drop-shadow-[0_0_12px_#c8ff00]" />
+                  <circle cx={pt1X} cy="75" r="3" fill="#ffffff" />
+                </g>
 
-                {/* Bullets List */}
-                <div className="flex-1 text-right" dir="rtl">
-                  <ul className="space-y-1.5 text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
-                    <li className="flex items-start gap-2 justify-start">
-                      <span className="text-zinc-500 font-bold select-none">•</span>
-                      <span>تحديد احتياجك من السعرات بدقة.</span>
-                    </li>
-                    <li className="flex items-start gap-2 justify-start">
-                      <span className="text-zinc-500 font-bold select-none">•</span>
-                      <span>توزيع الماكروز بما يناسب هدفك ونوع جسمك.</span>
-                    </li>
-                    <li className="flex items-start gap-2 justify-start">
-                      <span className="text-zinc-500 font-bold select-none">•</span>
-                      <span>رحلات غذائية مرنة تراعي نمط حياتك.</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                {/* POINT 2: Exactly at Service 2 Station */}
+                <g>
+                  <circle cx={pt2X} cy="265" r="14" fill="#c8ff00" fillOpacity="0.2" className="animate-pulse" />
+                  <circle cx={pt2X} cy="265" r="6" fill="#c8ff00" className="filter drop-shadow-[0_0_12px_#c8ff00]" />
+                  <circle cx={pt2X} cy="265" r="3" fill="#ffffff" />
+                </g>
 
-              {/* ===================== ROW 02: TRAINING (Shifted to the Right) ===================== */}
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 lg:gap-8 group md:translate-x-12 lg:translate-x-16 transition-transform">
-                {/* Left Number Marker */}
-                <div className="flex items-center md:flex-col justify-center font-mono shrink-0 w-8 text-left md:text-center gap-2 md:gap-1.5">
-                  <span className="text-sm sm:text-base font-bold text-zinc-300">02</span>
-                </div>
+                {/* POINT 3: Exactly at Service 3 Station */}
+                <g>
+                  <circle cx={pt3X} cy="455" r="14" fill="#c8ff00" fillOpacity="0.2" className="animate-pulse" />
+                  <circle cx={pt3X} cy="455" r="6" fill="#c8ff00" className="filter drop-shadow-[0_0_12px_#c8ff00]" />
+                  <circle cx={pt3X} cy="455" r="3" fill="#ffffff" />
+                </g>
 
-                {/* Stencil Watermark Word */}
-                <div className="shrink-0 select-none min-w-[170px] sm:min-w-[210px] lg:min-w-[240px]">
-                  <span className="watermark-textured-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono tracking-tight uppercase block leading-none">
-                    TRAINING
-                  </span>
-                </div>
-
-                {/* Arabic Title */}
-                <div className="shrink-0 text-right md:text-right min-w-[140px] sm:min-w-[160px]" dir="rtl">
-                  <h3 className="text-xl sm:text-2xl lg:text-[26px] font-black leading-snug">
-                    <span className="text-white block">برنامج تدريبي</span>
-                    <span className="text-white block">على أحدث</span>
-                    <span className="text-[#c8ff00] block mt-0.5 drop-shadow-[0_0_12px_rgba(200,255,0,0.35)]">
-                      الأسس العلمية
-                    </span>
-                  </h3>
-                </div>
-
-                {/* Vertical Divider */}
-                <div className="hidden md:block w-[1.5px] h-20 bg-zinc-800/90 shrink-0 mx-1" />
-
-                {/* Bullets List */}
-                <div className="flex-1 text-right" dir="rtl">
-                  <ul className="space-y-1.5 text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
-                    <li className="flex items-start gap-2 justify-start">
-                      <span className="text-zinc-500 font-bold select-none">•</span>
-                      <span>تصميم برنامج مخصص لهدفك ومستواك.</span>
-                    </li>
-                    <li className="flex items-start gap-2 justify-start">
-                      <span className="text-zinc-500 font-bold select-none">•</span>
-                      <span>حجم تدريب مناسب لتقدم مستمر وآمن.</span>
-                    </li>
-                    <li className="flex items-start gap-2 justify-start">
-                      <span className="text-zinc-500 font-bold select-none">•</span>
-                      <span>تطوير البرنامج بشكل دوري حسب نتائجك.</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* ===================== ROW 03: SUPPORT ===================== */}
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 lg:gap-8 group">
-                {/* Left Number Marker */}
-                <div className="flex items-center md:flex-col justify-center font-mono shrink-0 w-8 text-left md:text-center gap-2 md:gap-1">
-                  <span className="text-sm sm:text-base font-bold text-zinc-300">03</span>
-                  <span className="text-zinc-600 text-xs font-bold">+</span>
-                </div>
-
-                {/* Stencil Watermark Word */}
-                <div className="shrink-0 select-none min-w-[170px] sm:min-w-[210px] lg:min-w-[240px]">
-                  <span className="watermark-textured-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono tracking-tight uppercase block leading-none">
-                    SUPPORT
-                  </span>
-                </div>
-
-                {/* Arabic Title */}
-                <div className="shrink-0 text-right md:text-right min-w-[140px] sm:min-w-[160px]" dir="rtl">
-                  <h3 className="text-xl sm:text-2xl lg:text-[26px] font-black leading-snug">
-                    <span className="text-white block">دعم ومتابعة</span>
-                    <span className="text-white block">حقيقية – معايا</span>
-                    <span className="text-[#c8ff00] block mt-0.5 drop-shadow-[0_0_12px_rgba(200,255,0,0.35)]">
-                      أنا شخصياً
-                    </span>
-                  </h3>
-                </div>
-
-                {/* Vertical Divider */}
-                <div className="hidden md:block w-[1.5px] h-20 bg-zinc-800/90 shrink-0 mx-1" />
-
-                {/* Bullets List */}
-                <div className="flex-1 text-right" dir="rtl">
-                  <ul className="space-y-1.5 text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
-                    <li className="flex items-start gap-2 justify-start">
-                      <span className="text-zinc-500 font-bold select-none">•</span>
-                      <span>متابعة يومية وتواصل مباشر.</span>
-                    </li>
-                    <li className="flex items-start gap-2 justify-start">
-                      <span className="text-zinc-500 font-bold select-none">•</span>
-                      <span>مراجعة فيديوهات تمرينك عبر واتساب.</span>
-                    </li>
-                    <li className="flex items-start gap-2 justify-start">
-                      <span className="text-zinc-500 font-bold select-none">•</span>
-                      <span>تعديلات فورية لأي تحدي أو مشكلة.</span>
-                    </li>
-                    <li className="flex items-start gap-2 justify-start">
-                      <span className="text-zinc-500 font-bold select-none">•</span>
-                      <span>اشراف 1:1 باهتمام كامل.</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                {/* LANDING POINT: Resting cleanly above 0% COPY-PASTE */}
+                <g>
+                  <circle cx="180" cy="595" r="14" fill="#c8ff00" fillOpacity="0.25" className="animate-ping" />
+                  <circle cx="180" cy="595" r="6" fill="#c8ff00" className="filter drop-shadow-[0_0_12px_#c8ff00]" />
+                  <circle cx="180" cy="595" r="3" fill="#ffffff" />
+                </g>
+              </svg>
             </div>
 
-            {/* ===================== BOTTOM: 0% COPY-PASTE (BIG IN CENTER) & OUR PROMISE ===================== */}
-            <div className="mt-14 sm:mt-18 pt-8 border-t border-zinc-900/90 relative flex flex-col md:flex-row items-center justify-between gap-6">
-              {/* Left Box: OUR PROMISE */}
-              <div className="border border-zinc-800/80 bg-zinc-950/70 px-4 py-3 font-mono text-[10px] tracking-wider text-left shrink-0 self-start md:self-center">
-                <div className="text-zinc-300 font-bold">OUR PROMISE</div>
-                <div className="text-zinc-500 mt-1">NO TEMPLATES.</div>
-                <div className="text-zinc-500">JUST RESULTS.</div>
+            {/* Mobile Alternating Items Stack */}
+            <div className="relative z-10 flex flex-col gap-8" dir={isAr ? "rtl" : "ltr"}>
+              {/* Item 1: Right in AR, Left in EN */}
+              <div className={`flex ${isAr ? "justify-end" : "justify-start"} w-full`}>
+                <div className="w-[66%] max-w-[260px] flex flex-col items-center text-center">
+                  {/* Header: Large Watermark & Number */}
+                  <div className="flex items-center justify-center gap-2 select-none mb-1.5" dir="ltr">
+                    <div className="flex items-center justify-center font-mono shrink-0 gap-1">
+                      <span className="text-sm font-bold text-zinc-300">{services[0].num}</span>
+                      <span className="text-zinc-600 text-xs font-bold">+</span>
+                    </div>
+                    <span className="watermark-textured-white text-3xl sm:text-4xl font-black font-mono tracking-tight uppercase block leading-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+                      {services[0].watermark}
+                    </span>
+                  </div>
+
+                  {/* Station Dot Spacer (matches cy="75") */}
+                  <div className="h-8 flex items-center justify-center" />
+
+                  {/* Title & Description */}
+                  <div className="w-full flex flex-col items-center text-center">
+                    <h3 className="text-base sm:text-lg font-black leading-snug">
+                      <span className="text-white block drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                        {services[0].titleMain}
+                      </span>
+                      <span className="text-[#c8ff00] block mt-0.5 drop-shadow-[0_0_10px_rgba(200,255,0,0.4)]">
+                        {services[0].titleHighlight}
+                      </span>
+                    </h3>
+
+                    <div className="w-8 h-[2px] bg-[#c8ff00] my-2 shadow-[0_0_8px_#c8ff00] mx-auto rounded-full" />
+
+                    <div className="w-full space-y-1 font-sans">
+                      <p className="text-zinc-100 font-bold text-xs sm:text-sm leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        {services[0].specMain}
+                      </p>
+                      <p className="text-zinc-300 font-medium text-xs leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        {services[0].specSub}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Centered Large Typography: 0% COPY-PASTE */}
-              <div className="flex-1 flex flex-col items-center justify-center text-center">
-                <div className="flex flex-wrap items-baseline justify-center gap-3 md:gap-5">
-                  <span className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black font-mono text-[#c8ff00] leading-none drop-shadow-[0_0_25px_rgba(200,255,0,0.45)]">
-                    0%
-                  </span>
-                  <span className="watermark-textured-white text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black font-mono tracking-wider uppercase leading-none select-none">
-                    COPY-PASTE
-                  </span>
+              {/* Item 2: Left in AR, Right in EN */}
+              <div className={`flex ${isAr ? "justify-start" : "justify-end"} w-full`}>
+                <div className="w-[66%] max-w-[260px] flex flex-col items-center text-center">
+                  {/* Header: Large Watermark & Number */}
+                  <div className="flex items-center justify-center gap-2 select-none mb-1.5" dir="ltr">
+                    <div className="flex items-center justify-center font-mono shrink-0 gap-1">
+                      <span className="text-sm font-bold text-zinc-300">{services[1].num}</span>
+                      <span className="text-zinc-600 text-xs font-bold">+</span>
+                    </div>
+                    <span className="watermark-textured-white text-3xl sm:text-4xl font-black font-mono tracking-tight uppercase block leading-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+                      {services[1].watermark}
+                    </span>
+                  </div>
+
+                  {/* Station Dot Spacer (matches cy="265") */}
+                  <div className="h-8 flex items-center justify-center" />
+
+                  {/* Title & Description */}
+                  <div className="w-full flex flex-col items-center text-center">
+                    <h3 className="text-base sm:text-lg font-black leading-snug">
+                      <span className="text-white block drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                        {services[1].titleMain}
+                      </span>
+                      <span className="text-[#c8ff00] block mt-0.5 drop-shadow-[0_0_10px_rgba(200,255,0,0.4)]">
+                        {services[1].titleHighlight}
+                      </span>
+                    </h3>
+
+                    <div className="w-8 h-[2px] bg-[#c8ff00] my-2 shadow-[0_0_8px_#c8ff00] mx-auto rounded-full" />
+
+                    <div className="w-full space-y-1 font-sans">
+                      <p className="text-zinc-100 font-bold text-xs sm:text-sm leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        {services[1].specMain}
+                      </p>
+                      <p className="text-zinc-300 font-medium text-xs leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        {services[1].specSub}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-lg sm:text-xl lg:text-2xl font-black text-white mt-3 text-center" dir="rtl">
-                  كل برنامج بيتبنى من الصفر ليك أنت.
-                </p>
+              </div>
+
+              {/* Item 3: Right in AR, Left in EN */}
+              <div className={`flex ${isAr ? "justify-end" : "justify-start"} w-full`}>
+                <div className="w-[66%] max-w-[260px] flex flex-col items-center text-center">
+                  {/* Header: Large Watermark & Number */}
+                  <div className="flex items-center justify-center gap-2 select-none mb-1.5" dir="ltr">
+                    <div className="flex items-center justify-center font-mono shrink-0 gap-1">
+                      <span className="text-sm font-bold text-zinc-300">{services[2].num}</span>
+                      <span className="text-zinc-600 text-xs font-bold">+</span>
+                    </div>
+                    <span className="watermark-textured-white text-3xl sm:text-4xl font-black font-mono tracking-tight uppercase block leading-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+                      {services[2].watermark}
+                    </span>
+                  </div>
+
+                  {/* Station Dot Spacer (matches cy="455") */}
+                  <div className="h-8 flex items-center justify-center" />
+
+                  {/* Title & Description */}
+                  <div className="w-full flex flex-col items-center text-center">
+                    <h3 className="text-base sm:text-lg font-black leading-snug">
+                      <span className="text-white block drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                        {services[2].titleMain}
+                      </span>
+                      <span className="text-[#c8ff00] block mt-0.5 drop-shadow-[0_0_10px_rgba(200,255,0,0.4)]">
+                        {services[2].titleHighlight}
+                      </span>
+                    </h3>
+
+                    <div className="w-8 h-[2px] bg-[#c8ff00] my-2 shadow-[0_0_8px_#c8ff00] mx-auto rounded-full" />
+
+                    <div className="w-full space-y-1 font-sans">
+                      <p className="text-zinc-100 font-bold text-xs sm:text-sm leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        {services[2].specMain}
+                      </p>
+                      <p className="text-zinc-300 font-medium text-xs leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        {services[2].specSub}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* RIGHT 4 COLUMNS: Coach Silhouette / Photo Container */}
-          <div className="lg:col-span-4 xl:col-span-4 relative flex items-end justify-center min-h-[500px] lg:min-h-[660px] h-full">
-            <CoachImagePlaceholder
-              src={SITE_CONFIG.coachImages.services}
-              alt="كابتن محمد أبو جبل (GAP)"
-              variant="services"
-              poseLabel="صورة كابتن محمد أبو جبل"
-              className="z-10"
-            />
+          {/* ===================== DESKTOP: 3 SERVICES COLUMNS ===================== */}
+          <div className="hidden md:grid md:grid-cols-3 gap-8 lg:gap-12 relative z-10 mb-14 md:mb-20">
+            {services.map((service) => (
+              <div
+                key={service.num}
+                className="flex flex-col items-center text-center"
+              >
+                {/* 1. TOP WATERMARK: Exact same font and size */}
+                <div className="flex items-center justify-center gap-2.5 select-none mb-2" dir="ltr">
+                  <div className="flex items-center justify-center font-mono shrink-0 gap-1">
+                    <span className="text-xs sm:text-sm font-bold text-zinc-300">{service.num}</span>
+                    <span className="text-zinc-600 text-[10px] font-bold">+</span>
+                  </div>
+
+                  <span className="watermark-textured-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-black font-mono tracking-tight uppercase block leading-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+                    {service.watermark}
+                  </span>
+                </div>
+
+                {/* 2. STATION DOT SPACING (on desktop SVG passes right through this level y=70, on mobile shows glowing dot) */}
+                <div className="h-9 sm:h-11 flex items-center justify-center">
+                  <div className="md:hidden relative flex items-center justify-center">
+                    <span className="w-3.5 h-3.5 rounded-full bg-[#c8ff00] shadow-[0_0_12px_#c8ff00] block" />
+                  </div>
+                </div>
+
+                {/* 3. TITLE & DESCRIPTION: Centered directly underneath the title */}
+                <div className="w-full max-w-[340px] mx-auto flex flex-col items-center text-center">
+                  {/* Service Title */}
+                  <h3 className="text-base sm:text-lg lg:text-xl font-black leading-snug">
+                    <span className="text-white block">{service.titleMain}</span>
+                    <span className="text-[#c8ff00] block mt-0.5 drop-shadow-[0_0_10px_rgba(200,255,0,0.35)]">
+                      {service.titleHighlight}
+                    </span>
+                  </h3>
+
+                  {/* Centered Neon Accent Divider */}
+                  <div className="w-10 h-[2px] bg-[#c8ff00] my-2.5 shadow-[0_0_8px_#c8ff00] mx-auto rounded-full" />
+
+                  {/* Description: Directly and Centered Underneath Each Title */}
+                  <div className="w-full space-y-1 font-sans">
+                    <p className="text-zinc-200 font-bold text-xs sm:text-sm leading-relaxed">
+                      {service.specMain}
+                    </p>
+                    <p className="text-zinc-400 text-[11px] sm:text-xs font-medium leading-relaxed">
+                      {service.specSub}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
+
+          {/* ===================== BOTTOM: 0% COPY-PASTE (LANDING POINT) ===================== */}
+          <div className="relative z-10 pt-4 flex flex-col md:flex-row items-center justify-between gap-6" dir={isAr ? "rtl" : "ltr"}>
+            {/* Left Box: OUR PROMISE */}
+            <div className="border border-zinc-800/80 bg-zinc-950/80 px-4 py-3 font-mono text-[10px] tracking-wider text-left shrink-0 self-start md:self-center backdrop-blur-sm" dir="ltr">
+              <div className="text-zinc-300 font-bold">{t("services_promise_1")}</div>
+              <div className="text-zinc-500 mt-0.5">{t("services_promise_2")}</div>
+              <div className="text-zinc-500">{t("services_promise_3")}</div>
+            </div>
+
+            {/* Centered Large Typography: 0% COPY-PASTE (Target of the Glowing Line) */}
+            <div className="flex-1 flex flex-col items-center justify-center text-center">
+              <div className="flex items-baseline justify-center gap-2 sm:gap-3 md:gap-5 select-none" dir="ltr">
+                <span className="text-3xl sm:text-5xl lg:text-7xl xl:text-8xl font-black font-mono text-[#c8ff00] leading-none drop-shadow-[0_0_25px_rgba(200,255,0,0.45)]">
+                  0%
+                </span>
+                <span className="text-2xl sm:text-4xl lg:text-6xl xl:text-7xl font-black font-mono tracking-wider uppercase leading-none text-white">
+                  COPY-PASTE
+                </span>
+              </div>
+
+              {/* Subtitle statement */}
+              <p className="mt-2 text-xs sm:text-sm md:text-base text-zinc-300 font-bold font-sans max-w-xl mx-auto">
+                {t("services_copypaste_sub")}
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
   );
 }
+

@@ -105,12 +105,6 @@ export default function CertificatesSection() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-14 md:mb-16">
-          {/* Micro Tag - No surrounding container */}
-          <div className="flex items-center gap-2 text-zinc-400 font-mono text-[11px] tracking-widest mb-4 uppercase">
-            <span className="text-[#c8ff00] font-bold">+</span>
-            <span>{t("cert_badge")}</span>
-          </div>
-
           {/* Headline */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight max-w-4xl">
             <span>{t("cert_title_1")}</span>{" "}

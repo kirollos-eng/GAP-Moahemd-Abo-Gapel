@@ -32,14 +32,14 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
   const { lang, toggleLang, t, isAr } = useLanguage();
   const { currency, setCurrency, currencyConfig } = useCurrency();
 
-  const LOGO_URL =
-    "https://res.cloudinary.com/dv3f33hvk/image/upload/v1789429102/WhatsApp_Image_2026-09-15_at_02.19_1_xeoslu.png";
+  const LOGO_URL = "/logo-gap.svg";
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -63,6 +63,28 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
       document.body.style.overflow = "";
     }
   }, [menuOpen]);
+
+  const scrollToSection = (targetId: string) => {
+    setMenuOpen(false);
+    document.body.style.overflow = "";
+
+    setTimeout(() => {
+      if (targetId === "hero") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      const el = document.getElementById(targetId);
+      if (el) {
+        const headerOffset = 70;
+        const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = Math.max(0, elementPosition - headerOffset);
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }, 80);
+  };
 
   const navItems = [
     {
@@ -99,8 +121,16 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
       icon: Award,
     },
     {
-      id: "faq",
+      id: "services",
       number: "05",
+      title: t("nav_services"),
+      subtitle: isAr ? "برامج تدريب وتغذية مبنية بالكامل علشانك" : "Custom Built Around You & 0% Copy-Paste",
+      href: "#services",
+      icon: Sparkles,
+    },
+    {
+      id: "faq",
+      number: "06",
       title: t("nav_faq"),
       subtitle: isAr ? "إجابات على كافة استفساراتك" : "Frequently Asked Questions",
       href: "#faq",
@@ -111,60 +141,62 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
             ? "bg-[#070707]/95 backdrop-blur-md border-b border-zinc-800/90 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
-            : "bg-transparent border-b border-transparent py-4 md:py-5"
+            : "bg-transparent border-b border-transparent py-4 md:py-5 pointer-events-none"
         }`}
       >
         <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative">
           <div className="flex items-center justify-between min-h-[44px]" dir="ltr">
-            {/* SIDE 1: Coach Name Stacked: MOHAMED / ABO GAPEL - Enlarged with Matching Width */}
-            <div className="flex items-center h-full py-0.5">
-              <Link href="/" className="flex flex-col text-left group justify-center leading-[0.82] select-none">
-                <span className="text-xl sm:text-2xl md:text-[28px] font-black font-bebas tracking-[0.11em] text-white uppercase group-hover:text-[#c8ff00] transition-colors leading-[0.82]">
-                  MOHAMED
-                </span>
-                <span className="text-[14px] sm:text-[17px] md:text-[19.5px] font-black font-bebas tracking-[0.21em] text-zinc-300 uppercase group-hover:text-white transition-colors leading-[0.82]">
-                  ABO GAPEL
-                </span>
-              </Link>
-            </div>
+            {/* SIDE 1: Left Spacer for balance */}
+            <div className="flex items-center min-w-[40px] sm:min-w-[60px]" />
 
-            {/* CENTER: Exact Logo (Centered in navbar) */}
+            {/* CENTER: GAP Logo - Ultra-crisp vector logo, large in Hero & gracefully transitioning to Navbar */}
             <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-auto">
-              <Link href="/" className="flex items-center justify-center group py-1">
+              <Link
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("hero");
+                }}
+                className={`flex items-center justify-center group py-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu ${
+                  isScrolled
+                    ? "translate-y-0 drop-shadow-[0_0_12px_rgba(255,255,255,0.2)]"
+                    : "translate-y-[44px] sm:translate-y-[68px] md:translate-y-[88px] lg:translate-y-[100px] drop-shadow-[0_4px_30px_rgba(255,255,255,0.35)]"
+                }`}
+                aria-label="GAP Home"
+              >
                 <img
                   src={LOGO_URL}
                   alt="GAP Logo"
-                  className="h-6 sm:h-7 md:h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.15)] group-hover:drop-shadow-[0_0_16px_rgba(200,255,0,0.4)]"
+                  className={`w-auto object-contain transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 ${
+                    isScrolled
+                      ? "h-5 sm:h-7 md:h-8"
+                      : "h-11 sm:h-16 md:h-22 lg:h-26"
+                  }`}
                 />
               </Link>
             </div>
 
             {/* SIDE 2: CTA (ابدأ الآن) + Language Switcher + MENU on the outer edge */}
-            <div className="flex items-center gap-2 sm:gap-2.5">
+            <div className="flex items-center gap-1 sm:gap-2.5 pointer-events-auto">
               {/* Language Switcher (No container) */}
               <button
                 onClick={toggleLang}
-                className="text-xs sm:text-sm font-mono font-bold text-zinc-400 hover:text-[#c8ff00] transition-colors cursor-pointer px-2 py-1 uppercase tracking-wider"
+                className="text-[11px] sm:text-sm font-mono font-bold text-zinc-400 hover:text-[#c8ff00] transition-colors cursor-pointer px-1.5 sm:px-2 py-1 uppercase tracking-wider"
                 title="Switch Language / تغيير اللغة"
               >
                 {lang === "ar" ? "EN" : "عربي"}
               </button>
 
-              {/* Main CTA: Scrolls directly to Plans/Packages section (#packages) - Placed directly next to Menu */}
+              {/* Main CTA: Visible on tablet & desktop, tucked inside Menu on mobile for zero header crowding */}
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  const el = document.getElementById("packages");
-                  if (el) {
-                    el.scrollIntoView({ behavior: "smooth" });
-                  } else {
-                    window.location.hash = "#packages";
-                  }
+                  scrollToSection("packages");
                 }}
-                className="relative group h-9 sm:h-[38px] bg-[#c8ff00] hover:bg-[#b8ec00] text-black font-extrabold text-xs sm:text-xs md:text-sm px-3.5 sm:px-4 transition-all duration-300 shadow-[0_0_15px_rgba(200,255,0,0.25)] hover:shadow-[0_0_25px_rgba(200,255,0,0.55)] active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+                className="hidden sm:flex relative group h-9 sm:h-[38px] bg-[#c8ff00] hover:bg-[#b8ec00] text-black font-extrabold text-xs sm:text-xs md:text-sm px-3.5 sm:px-4 transition-all duration-300 shadow-[0_0_15px_rgba(200,255,0,0.25)] hover:shadow-[0_0_25px_rgba(200,255,0,0.55)] active:scale-95 items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
               >
                 <span>{t("nav_cta")}</span>
                 <ArrowUpRight className="w-3.5 h-3.5 hidden sm:inline transition-transform group-hover:translate-x-[2px] group-hover:-translate-y-[2px]" />
@@ -173,15 +205,15 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
               {/* MENU Button placed on the far outer edge */}
               <button
                 onClick={() => setMenuOpen(true)}
-                className="group h-9 sm:h-[38px] flex items-center justify-center gap-2 px-3 sm:px-3.5 bg-zinc-900/90 hover:bg-zinc-850 border border-zinc-750 hover:border-[#c8ff00] transition-all duration-300 cursor-pointer active:scale-95 shadow-[0_0_15px_rgba(0,0,0,0.5)] whitespace-nowrap"
+                className="group h-8 sm:h-[38px] flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 bg-zinc-900/90 hover:bg-zinc-850 border border-zinc-750 hover:border-[#c8ff00] transition-all duration-300 cursor-pointer active:scale-95 shadow-[0_0_15px_rgba(0,0,0,0.5)] whitespace-nowrap"
                 aria-label="Open Navigation Menu"
               >
-                <div className="flex flex-col gap-1 w-3.5 sm:w-4">
+                <div className="flex flex-col gap-1 w-3 sm:w-4">
                   <span className="h-[2px] w-full bg-white group-hover:bg-[#c8ff00] transition-colors" />
                   <span className="h-[2px] w-3/4 bg-white group-hover:bg-[#c8ff00] group-hover:w-full transition-all" />
                   <span className="h-[2px] w-full bg-white group-hover:bg-[#c8ff00] transition-colors" />
                 </div>
-                <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider text-zinc-300 group-hover:text-[#c8ff00] transition-colors uppercase">
+                <span className="text-[10px] sm:text-xs font-mono font-bold tracking-wider text-zinc-300 group-hover:text-[#c8ff00] transition-colors uppercase">
                   {isAr ? "القائمة" : "MENU"}
                 </span>
               </button>
@@ -190,9 +222,9 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
         </div>
       </header>
 
-      {/* FULLSCREEN THEATER/BOARD CURTAIN MENU (ستارة كاملة الشاشة تفتح من فوق لتحت وتقفل من تحت لفوق بنعومة فائقة) */}
+      {/* FULLSCREEN THEATER/BOARD CURTAIN MENU */}
       <div
-        className={`curtain-menu-overlay p-6 sm:p-8 lg:px-12 lg:py-7 xl:px-16 xl:py-8 backdrop-blur-2xl ${
+        className={`curtain-menu-overlay p-4 sm:p-8 lg:px-12 lg:py-7 xl:px-16 xl:py-8 backdrop-blur-2xl ${
           menuOpen ? "is-open" : ""
         }`}
       >
@@ -211,10 +243,10 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
             <img src={LOGO_URL} alt="GAP" className="h-7 sm:h-8 lg:h-8.5 w-auto object-contain" />
             <div className="flex flex-col text-left font-bebas leading-[0.82] select-none">
               <span className="text-base sm:text-lg lg:text-xl font-black tracking-[0.11em] text-white uppercase">
-                MOHAMED
+                GAP
               </span>
-              <span className="text-xs sm:text-sm lg:text-[14px] font-black tracking-[0.21em] text-zinc-400 uppercase">
-                ABO GAPEL
+              <span className="text-xs sm:text-sm lg:text-[14px] font-black tracking-[0.21em] text-[#c8ff00] uppercase">
+                COACHING
               </span>
             </div>
           </div>
@@ -248,17 +280,12 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
                   href={item.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    setMenuOpen(false);
-                    const targetId = item.href.replace("#", "");
-                    const el = document.getElementById(targetId);
-                    if (el) {
-                      el.scrollIntoView({ behavior: "smooth" });
-                    }
+                    scrollToSection(item.href.replace("#", ""));
                   }}
                   style={{
-                    transitionDelay: menuOpen ? `${180 + idx * 65}ms` : "0ms",
+                    transitionDelay: menuOpen ? `${180 + idx * 55}ms` : "0ms",
                   }}
-                  className="curtain-nav-item group flex items-center justify-between p-3 sm:p-4 lg:py-3 lg:px-5 xl:py-3.5 xl:px-5 border border-zinc-850/80 hover:border-[#c8ff00]/80 bg-zinc-950/60 hover:bg-zinc-900/90 shadow-[0_4px_25px_rgba(0,0,0,0.5)] cursor-pointer"
+                  className="curtain-nav-item group flex items-center justify-between p-3 sm:p-3.5 lg:py-2.5 lg:px-5 xl:py-3 xl:px-5 border border-zinc-850/80 hover:border-[#c8ff00]/80 bg-zinc-950/60 hover:bg-zinc-900/90 shadow-[0_4px_25px_rgba(0,0,0,0.5)] cursor-pointer"
                 >
                   <div className="flex items-center gap-3.5 sm:gap-5">
                     <span className="font-mono text-sm sm:text-base lg:text-sm xl:text-base text-[#c8ff00] font-black">
@@ -290,19 +317,6 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center">
-            {/* WhatsApp Direct */}
-            <a
-              href={SITE_CONFIG.socialLinks.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-2 px-3 sm:px-3.5 py-1.5 sm:py-2 bg-zinc-900/90 border border-zinc-800 hover:border-[#25D366] text-zinc-300 hover:text-[#25D366] transition-all cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.5)] active:scale-95 text-xs font-mono font-bold"
-              aria-label="WhatsApp"
-            >
-              <svg className="w-4 h-4 fill-current text-[#25D366]" viewBox="0 0 24 24">
-                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-              </svg>
-              <span>WhatsApp</span>
-            </a>
 
             {/* Instagram Link */}
             <a
@@ -336,30 +350,12 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
           </div>
         </div>
 
-        {/* Bottom Bar: Currency & Language Switchers + Primary CTA */}
+        {/* Bottom Bar: Language Switcher + Primary CTA */}
         <div className="curtain-inner-footer relative z-10 max-w-4xl mx-auto w-full pt-3 lg:pt-3.5 border-t border-zinc-850/80 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-          {/* Currency Selector */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-zinc-400 hidden sm:inline">
-              {isAr ? "العملة:" : "Currency:"}
-            </span>
-            {(Object.keys(CURRENCY_CONFIGS) as CurrencyType[]).map((c) => {
-              const cfg = CURRENCY_CONFIGS[c];
-              const isSelected = currency === c;
-              return (
-                <button
-                  key={c}
-                  onClick={() => setCurrency(c)}
-                  className={`px-3 py-1.5 border font-mono text-xs transition-all cursor-pointer ${
-                    isSelected
-                      ? "border-[#c8ff00] bg-[#c8ff00]/15 text-[#c8ff00] font-bold shadow-[0_0_12px_rgba(200,255,0,0.3)]"
-                      : "border-zinc-800 bg-zinc-900/60 text-zinc-300 hover:border-zinc-700"
-                  }`}
-                >
-                  {cfg.flag} {cfg.code}
-                </button>
-              );
-            })}
+          {/* Status Indicator */}
+          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
+            <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-pulse" />
+            <span>GAP COACHING SYSTEM</span>
           </div>
 
           {/* Language Toggle + Plans CTA */}
@@ -373,15 +369,7 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
             </button>
 
             <button
-              onClick={() => {
-                setMenuOpen(false);
-                const el = document.getElementById("packages");
-                if (el) {
-                  el.scrollIntoView({ behavior: "smooth" });
-                } else {
-                  window.location.hash = "#packages";
-                }
-              }}
+              onClick={() => scrollToSection("packages")}
               className="flex-1 sm:flex-initial px-6 py-2.5 bg-[#c8ff00] hover:bg-[#b8ec00] text-black font-black text-xs sm:text-sm transition-all duration-300 shadow-[0_0_20px_rgba(200,255,0,0.35)] hover:shadow-[0_0_30px_rgba(200,255,0,0.6)] cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
             >
               <span>{t("nav_cta")}</span>

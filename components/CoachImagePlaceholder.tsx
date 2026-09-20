@@ -13,7 +13,7 @@ interface CoachImagePlaceholderProps {
 
 export default function CoachImagePlaceholder({
   src,
-  alt = "كابتن محمد أحمد",
+  alt = "كابتن محمود أبو جبل",
   className = "",
   poseLabel = "صورة الكابتن",
   variant = "hero"
@@ -39,7 +39,7 @@ export default function CoachImagePlaceholder({
   // Fallback: A high-end cyberpunk athletic physique silhouette with rim lighting & HUD tags
   return (
     <div
-      className={`relative w-full h-full min-h-[460px] md:min-h-[580px] flex flex-col items-center justify-end select-none group ${className}`}
+      className={`relative w-full h-full min-h-[360px] sm:min-h-[400px] md:min-h-[440px] lg:min-h-0 flex flex-col items-center justify-end select-none group ${className}`}
     >
       {/* Radial green athletic backlight */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[320px] md:w-[480px] h-[320px] md:h-[480px] bg-[#c8ff00]/10 rounded-full blur-[90px] pointer-events-none" />
@@ -57,7 +57,7 @@ export default function CoachImagePlaceholder({
       </div>
 
       {/* Stylized Bodybuilder Silhouette SVG with rim glow */}
-      <div className="relative z-10 w-full max-w-[420px] h-[480px] md:h-[580px] flex items-end justify-center px-4">
+      <div className="relative z-10 w-full max-w-[420px] h-full max-h-[460px] md:max-h-[520px] lg:max-h-[540px] flex items-end justify-center px-4">
         <svg
           viewBox="0 0 400 600"
           className="w-full h-full max-h-[560px] filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.9)] opacity-90 transition-all duration-500 group-hover:scale-[1.02]"
