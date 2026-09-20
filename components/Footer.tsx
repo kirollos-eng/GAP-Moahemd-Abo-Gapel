@@ -88,6 +88,22 @@ export default function Footer() {
             <a href="#faq" className="hover:text-white transition-colors">{t("nav_faq")}</a>
           </div>
         </div>
+
+        {/* Made by VeraPiú Centered Credit */}
+        <div className="pt-6 mt-4 border-t border-zinc-900/60 flex items-center justify-center text-center">
+          <a
+            href="https://verapiu.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            dir="ltr"
+            className="group inline-flex items-center gap-1.5 text-xs font-mono text-zinc-500 hover:text-zinc-300 transition-colors"
+          >
+            <span>Made by</span>
+            <span className="font-bold text-zinc-400 group-hover:text-[#c8ff00] transition-colors underline decoration-zinc-700 underline-offset-4 group-hover:decoration-[#c8ff00]">
+              VeraPiú
+            </span>
+          </a>
+        </div>
       </div>
     </footer>
   );

@@ -44,7 +44,7 @@ export const SITE_CONFIG = {
     commitmentRate: "86%",
     aboutClients: "963+",
     aboutExperience: "3+",
-    aboutCustom: "100%",
+    aboutCustom: "54%",
     aboutDirectSupport: "1:1",
   },
 

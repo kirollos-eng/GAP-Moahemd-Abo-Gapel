@@ -115,7 +115,7 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
       id: "about",
       number: "03",
       title: t("nav_about"),
-      subtitle: isAr ? "وعد 0% نسخ ولصق وخبرة 6+ سنوات" : "0% Copy-Paste & 6+ Years Experience",
+      subtitle: isAr ? "0% نسخ - لصق وخبرة 3+ سنوات" : "0% Copy-Paste & 3+ Years Experience",
       href: "#about",
       icon: ShieldCheck,
     },
@@ -123,7 +123,7 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
       id: "certificates",
       number: "04",
       title: t("nav_certificates"),
-      subtitle: isAr ? "اعتمادات NASM الدولية وجمعية القلب الأمريكية BLS" : "NASM & American Heart Association Accreditations",
+      subtitle: isAr ? "شهادات واعتمادات تدريب دولية" : "International Coaching Accreditations",
       href: "#certificates",
       icon: Award,
     },
@@ -245,17 +245,9 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
 
         {/* Top Header Bar inside Curtain: Fades and slides down into place */}
         <div className="curtain-inner-header relative z-10 flex items-center justify-between border-b border-zinc-800/80 pb-4 lg:pb-4.5 w-full max-w-5xl mx-auto">
-          {/* Logo & Coach Title */}
-          <div className="flex items-center gap-3.5">
+          {/* Logo */}
+          <div className="flex items-center">
             <img src={LOGO_URL} alt="GAP" className="h-7 sm:h-8 lg:h-8.5 w-auto object-contain" />
-            <div className="flex flex-col text-left font-bebas leading-[0.82] select-none">
-              <span className="text-base sm:text-lg lg:text-xl font-black tracking-[0.11em] text-white uppercase">
-                GAP
-              </span>
-              <span className="text-xs sm:text-sm lg:text-[14px] font-black tracking-[0.21em] text-[#c8ff00] uppercase">
-                COACHING
-              </span>
-            </div>
           </div>
 
           {/* Close Curtain Button with label */}
@@ -359,11 +351,19 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
 
         {/* Bottom Bar: Language Switcher + Primary CTA */}
         <div className="curtain-inner-footer relative z-10 max-w-4xl mx-auto w-full pt-3 lg:pt-3.5 border-t border-zinc-850/80 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-          {/* Status Indicator */}
-          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
-            <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-pulse" />
-            <span>GAP COACHING SYSTEM</span>
-          </div>
+          {/* Made by VeraPiú Credit */}
+          <a
+            href="https://verapiu.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            dir="ltr"
+            className="group inline-flex items-center justify-center gap-1.5 text-xs font-mono text-zinc-500 hover:text-zinc-300 transition-colors"
+          >
+            <span>Made by</span>
+            <span className="font-bold text-zinc-400 group-hover:text-[#c8ff00] transition-colors underline decoration-zinc-700 underline-offset-4 group-hover:decoration-[#c8ff00]">
+              VeraPiú
+            </span>
+          </a>
 
           {/* Language Toggle + Plans CTA */}
           <div className="flex items-center gap-3 w-full sm:w-auto">
