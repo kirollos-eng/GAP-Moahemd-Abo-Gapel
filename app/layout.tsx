@@ -36,6 +36,7 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gap-coaching.vercel.app"),
   title: "GAP Coaching",
   description: "تدريب أونلاين مبني علمياً على جسمك وهدفك — خطة تغذية مرنة ومحسوبة، برنامج تدريبي علمي، ومتابعة شخصية مباشرة 1:1 مع GAP Coaching.",
   keywords: ["تدريب أونلاين", "مدرب شخصي", "GAP", "GAP Coaching", "كمال أجسام", "باقات تدريب الإمارات", "خسارة دهون", "بناء عضلات"],
@@ -51,15 +52,25 @@ export const metadata: Metadata = {
   openGraph: {
     title: "GAP Coaching",
     description: "اصنع نسختك الأفضل بأعلى معايير علمية مع GAP Coaching. برامج تدريب وتغذية مخصصة 100% بدون نسخ ولصق.",
+    url: "https://gap-coaching.vercel.app",
+    siteName: "GAP Coaching",
     locale: "ar_AE",
     type: "website",
     images: [
       {
-        url: "/logo-gap.png",
+        url: "https://res.cloudinary.com/dv3f33hvk/image/upload/v1789912572/ChatGPT_Image_Sep_15_2026_01_55_46_PM_vpurt7.png",
         width: 1200,
         height: 630,
-        alt: "GAP COACHING",
+        alt: "GAP Coaching",
       },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GAP Coaching",
+    description: "اصنع نسختك الأفضل بأعلى معايير علمية مع GAP Coaching. برامج تدريب وتغذية مخصصة 100% بدون نسخ ولصق.",
+    images: [
+      "https://res.cloudinary.com/dv3f33hvk/image/upload/v1789912572/ChatGPT_Image_Sep_15_2026_01_55_46_PM_vpurt7.png",
     ],
   },
 };
