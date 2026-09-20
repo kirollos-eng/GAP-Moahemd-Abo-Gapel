@@ -9,7 +9,7 @@ export default function AboutSection() {
   return (
     <section id="about" className="relative bg-[#070707] py-20 md:py-28 border-t border-zinc-900 overflow-hidden scroll-mt-20 md:scroll-mt-24">
       {/* Giant Background Watermark "COACH" - Textured White Stencil */}
-      <div className="absolute inset-x-0 top-10 md:top-14 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0 opacity-[0.06] md:opacity-[0.08]">
+      <div className="absolute inset-x-0 top-10 md:top-14 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0 opacity-[0.22] md:opacity-[0.26]">
         <span className="watermark-textured-white text-[25vw] uppercase whitespace-nowrap tracking-normal block leading-none">
           COACH
         </span>

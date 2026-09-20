@@ -42,11 +42,11 @@ export default function LoadingScreen() {
         if (typeof window !== "undefined") {
           window.dispatchEvent(new CustomEvent("gap-reveal-hero"));
         }
-      }, 400);
+      }, 80);
 
       const unmountTimer = setTimeout(() => {
         setIsMounted(false);
-      }, 1250);
+      }, 540);
 
       return () => {
         clearTimeout(eraseTimer);
@@ -69,26 +69,27 @@ export default function LoadingScreen() {
     }
     setTimeout(() => {
       setIsMounted(false);
-    }, 1250);
+    }, 480);
   };
-
-  // Fully covers screen immediately on load, then wipes Left-to-Right with eraser
-  const clipPathStyle = isErasing
-    ? "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)"
-    : "polygon(0 0, 100% 0, 100% 100%, 0 100%)";
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] ${
-        isErasing ? "pointer-events-none" : "pointer-events-auto"
-      } transition-[clip-path] ease-[cubic-bezier(0.65,0,0.35,1)]`}
-      style={{
-        clipPath: clipPathStyle,
-        transitionDuration: isErasing ? "700ms" : "550ms",
-      }}
+      className="fixed inset-0 z-[9999] overflow-hidden pointer-events-none"
     >
-      {/* Solid Neon Green Board Background (#c8ff00) */}
-      <div className="absolute inset-0 bg-[#c8ff00] flex flex-col items-center justify-center overflow-hidden">
+      {/* 🚀 GPU Hardware-Accelerated Sliding Curtain (Left to Right Sweep) - 100% Smooth on Safari & Chrome */}
+      <div
+        className={`absolute inset-0 bg-[#c8ff00] flex flex-col items-center justify-center transform-gpu ${
+          isErasing ? "pointer-events-none" : "pointer-events-auto"
+        }`}
+        style={{
+          transform: isErasing ? "translate3d(calc(100% + 140px), 0, 0)" : "translate3d(0, 0, 0)",
+          transition: isErasing
+            ? "transform 450ms cubic-bezier(0.65, 0, 0.25, 1)"
+            : "none",
+          willChange: isErasing ? "transform" : "auto",
+          boxShadow: isErasing ? "-30px 0 60px rgba(0, 0, 0, 0.7)" : "none",
+        }}
+      >
         {/* Subtle Athletic Texture Lines */}
         <div
           className="absolute inset-0 opacity-10 pointer-events-none"
@@ -101,22 +102,17 @@ export default function LoadingScreen() {
         />
 
         {/* Center Content: Solid Black GAP Logo + Black Athletic Typography / Interactive Ask */}
-        <div className="relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-md select-none">
-          {/* Solid Black Logo masked cleanly on Neon Green */}
+        <div
+          className={`relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-md select-none transition-opacity duration-200 ${
+            isErasing ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
+          {/* Solid Black Logo */}
           <div className="relative mb-3 transition-transform duration-300 transform scale-100">
-            <div
-              className="w-32 sm:w-40 md:w-44 h-11 sm:h-13 md:h-14 bg-black transition-all"
-              style={{
-                maskImage: "url('/logo-gap.svg')",
-                WebkitMaskImage: "url('/logo-gap.svg')",
-                maskSize: "contain",
-                WebkitMaskSize: "contain",
-                maskPosition: "center",
-                WebkitMaskPosition: "center",
-                maskRepeat: "no-repeat",
-                WebkitMaskRepeat: "no-repeat",
-                filter: "drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25))",
-              }}
+            <img
+              src="/logo-gap.svg"
+              alt="GAP COACHING"
+              className="w-32 sm:w-40 md:w-44 h-11 sm:h-13 md:h-14 object-contain brightness-0 drop-shadow-[0_4px_12px_rgba(0,0,0,0.25)]"
             />
           </div>
 
@@ -267,21 +263,7 @@ export default function LoadingScreen() {
           )}
         </div>
 
-        {/* 🧽 Board Eraser (Left to Right Exit Animation) */}
-        {isErasing && (
-          <div className="absolute top-0 bottom-0 left-0 w-16 -ml-8 flex flex-col justify-center items-center pointer-events-none z-50 animate-board-eraser">
-            {/* Authentic Board Eraser Visual */}
-            <div className="w-10 h-32 sm:h-40 bg-[#1c1917] border-2 border-[#44403c] rounded-md shadow-[-20px_0_40px_rgba(0,0,0,0.8),15px_0_30px_rgba(0,0,0,0.6)] flex flex-col justify-between p-2 relative">
-              <div className="w-full h-2 bg-[#292524] rounded-sm" />
-              <div className="font-mono text-[8px] text-neutral-400 font-black tracking-widest text-center rotate-90 uppercase">
-                GAP ERASER
-              </div>
-              <div className="w-full h-2 bg-[#292524] rounded-sm" />
-              <div className="absolute top-0 bottom-0 right-0 w-1.5 bg-[#a8a29e] rounded-r-sm" />
-            </div>
-            <div className="absolute top-0 bottom-0 right-0 w-1 bg-black/60 shadow-[0_0_25px_rgba(0,0,0,0.9)]" />
-          </div>
-        )}
+
       </div>
     </div>
   );

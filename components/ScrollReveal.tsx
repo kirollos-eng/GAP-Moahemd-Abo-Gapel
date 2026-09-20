@@ -39,20 +39,11 @@ export default function ScrollReveal() {
     };
 
     observeSections();
-
-    // Re-check when DOM changes
-    const mutationObserver = new MutationObserver(() => {
-      observeSections();
-    });
-
-    mutationObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
+    const t = setTimeout(observeSections, 300);
 
     return () => {
       observer.disconnect();
-      mutationObserver.disconnect();
+      clearTimeout(t);
     };
   }, []);
 

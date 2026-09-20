@@ -76,7 +76,7 @@ export default function ProcessSection() {
       <div className="absolute bottom-1/3 -left-28 w-[500px] h-[500px] bg-[#c8ff00]/4 rounded-full blur-[180px] pointer-events-none" />
 
       {/* Giant Background Watermark "PROCESS" */}
-      <div className="absolute inset-x-0 top-1 md:top-4 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden opacity-[0.09] md:opacity-[0.10]">
+      <div className="absolute inset-x-0 top-1 md:top-4 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden opacity-[0.20] md:opacity-[0.24]">
         <span className="watermark-textured-white text-[24vw] sm:text-[22vw] md:text-[22vw] uppercase whitespace-nowrap tracking-normal block leading-none">
           PROCESS
         </span>

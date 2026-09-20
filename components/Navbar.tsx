@@ -35,8 +35,15 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
   const LOGO_URL = "/logo-gap.svg";
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 15);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -152,7 +159,7 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
             {/* SIDE 1: Left Spacer for balance */}
             <div className="flex items-center min-w-[40px] sm:min-w-[60px]" />
 
-            {/* CENTER: GAP Logo - Ultra-crisp vector logo, large in Hero & gracefully transitioning to Navbar */}
+            {/* CENTER: GAP Logo - Starts large in Hero & gracefully transitions to Navbar on scroll */}
             <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-auto">
               <Link
                 href="/"
@@ -160,7 +167,7 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
                   e.preventDefault();
                   scrollToSection("hero");
                 }}
-                className={`flex items-center justify-center group py-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu ${
+                className={`flex items-center justify-center group py-1 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu ${
                   isScrolled
                     ? "translate-y-0 drop-shadow-[0_0_12px_rgba(255,255,255,0.2)]"
                     : "translate-y-[44px] sm:translate-y-[68px] md:translate-y-[88px] lg:translate-y-[100px] drop-shadow-[0_4px_30px_rgba(255,255,255,0.35)]"
@@ -170,7 +177,7 @@ export default function Navbar({ onOpenSubscribe }: NavbarProps) {
                 <img
                   src={LOGO_URL}
                   alt="GAP Logo"
-                  className={`w-auto object-contain transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 ${
+                  className={`w-auto object-contain transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 ${
                     isScrolled
                       ? "h-5 sm:h-7 md:h-8"
                       : "h-11 sm:h-16 md:h-22 lg:h-26"

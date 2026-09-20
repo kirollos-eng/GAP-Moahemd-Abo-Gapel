@@ -79,19 +79,22 @@ body {
   pointer-events: none;
   line-height: 0.82;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.24);
-  /* Distressed metallic concrete grain texture */
+  color: rgba(255, 255, 255, 0.45);
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.38) 0%,
-    rgba(230, 230, 230, 0.22) 50%,
-    rgba(190, 190, 190, 0.12) 100%
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(235, 235, 235, 0.45) 50%,
+    rgba(195, 195, 195, 0.20) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: contrast(135%) brightness(115%);
-  text-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
+  /* Hardware-accelerated GPU pinning to prevent Safari scroll shaking */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
 }
 
 .watermark-card-white {
@@ -102,18 +105,22 @@ body {
   pointer-events: none;
   line-height: 0.82;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.40);
+  color: rgba(255, 255, 255, 0.35);
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.52) 0%,
-    rgba(220, 220, 220, 0.32) 55%,
-    rgba(160, 160, 160, 0.16) 100%
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(220, 220, 220, 0.25) 55%,
+    rgba(160, 160, 160, 0.10) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: contrast(145%) brightness(130%);
-  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+  /* Hardware-accelerated GPU pinning to prevent Safari scroll shaking */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
 }
 
 /* Pricing Section Cards Flex & Expand on Hover */
@@ -204,25 +211,7 @@ body {
   background: #c8ff00;
 }
 
-/* Board Eraser Sweep (Left to Right) Keyframes */
-@keyframes boardEraserSweep {
-  0% {
-    left: 0%;
-    opacity: 1;
-  }
-  90% {
-    left: 100%;
-    opacity: 1;
-  }
-  100% {
-    left: 108%;
-    opacity: 0;
-  }
-}
 
-.animate-board-eraser {
-  animation: boardEraserSweep 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
 
 /* Fullscreen Curtain Menu System (Opens top-to-bottom, closes bottom-to-top) */
 .curtain-menu-overlay {

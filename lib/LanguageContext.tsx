@@ -24,8 +24,8 @@ export const translations = {
     nav_cta: "ابدأ دلوقتي",
     
     // Hero
-    hero_title_1: "اصنع نسختك الأفضل",
-    hero_title_2: "بأعلى معايير علمية.",
+    hero_title_1: "استثمر في جسمك..",
+    hero_title_2: "ببرنامج تمرين وتغذية متفصل من الصفر عشانك.",
     hero_title_3: "",
     hero_subtitle: "تدريب أونلاين برايفت مبني علمياً على جسمك وهدفك — تغذية، تمرين، ومتابعة مباشرة 1:1.",
     hero_cta_primary: "اختار باقتك",
@@ -220,8 +220,8 @@ export const translations = {
     nav_cta: "Get Started",
 
     // Hero
-    hero_title_1: "UNLEASH YOUR BEST",
-    hero_title_2: "SCIENCE-BASED PHYSIQUE.",
+    hero_title_1: "INVEST IN YOUR BODY..",
+    hero_title_2: "WITH A FULLY CUSTOM TRAINING & NUTRITION PLAN.",
     hero_title_3: "",
     hero_subtitle: "Evidence-based online coaching tailored to your body & goal — nutrition, training, and 1:1 direct support.",
     hero_cta_primary: "CHOOSE YOUR PLAN",
