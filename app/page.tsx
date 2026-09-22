@@ -14,6 +14,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScrollToTop from "@/components/ScrollToTop";
 import SectionIndicator from "@/components/SectionIndicator";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function Home() {
   return (
@@ -48,6 +49,9 @@ export default function Home() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Floating WhatsApp Button */}
+      <WhatsAppButton />
 
       {/* Floating Scroll To Top Button */}
       <ScrollToTop />
